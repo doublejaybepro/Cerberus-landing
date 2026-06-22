@@ -747,7 +747,7 @@ function openTallyPopup() {
   const url = getLangFormUrl();
   const formId = url.split('/r/')[1];
   if (window.Tally) {
-    Tally.openPopup(formId, { width: 500, emoji: { text: '👋', animation: 'wave' } });
+    Tally.openPopup(formId, { width: 420, emoji: { text: '👋', animation: 'wave' } });
   } else {
     // Tally 아직 로드 안됨 - 500ms 후 재시도
     setTimeout(openTallyPopup, 500);
