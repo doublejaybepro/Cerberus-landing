@@ -100,12 +100,72 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
 .dl-btn:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25)}
 .dl-icon{width:40px;height:40px;background:var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 
+/* ── 태블릿 ── */
 @media(max-width:860px){
-  nav{padding:0 16px}.nav-links{display:none}
-  .hero-content{padding:40px 24px 80px}
-  .feat-grid{grid-template-columns:repeat(2,1fr)}
+  /* NAV */
+  nav{padding:0 16px}
+  .nav-links{display:none}
+
+  /* HERO */
+  .hero{min-height:100svh;padding:80px 0 0}
+  .hero-content{padding:48px 24px 60px;max-width:100%}
+  .hero-h{font-size:clamp(36px,8vw,60px)}
+  .hero-msg{font-size:clamp(15px,3.5vw,18px)}
+
+  /* SEC2 */
+  #sec2{height:auto;padding:60px 24px}
+  #sec2 > div > div[style*="grid-template-columns:3fr"]{
+    grid-template-columns:1fr!important;gap:20px!important
+  }
+
+  /* PACKAGES */
+  #packages > div > div[style*="position:relative"]{
+    overflow-x:auto
+  }
+  #packages [style*="grid-template-columns:1fr 1fr 1fr"]{
+    min-width:700px
+  }
+
+  /* BOTTOM */
   .bottom-grid{grid-template-columns:1fr}
   footer{flex-direction:column;text-align:center}
+}
+
+/* ── 모바일 ── */
+@media(max-width:560px){
+  /* NAV */
+  nav{padding:0 14px}
+  .nav-btn{font-size:12px;padding:7px 14px}
+  [id^="lang-"]{font-size:11px;padding:3px 8px}
+
+  /* HERO */
+  .hero-content{padding:44px 20px 48px}
+  .hero-h{font-size:clamp(32px,9vw,48px)}
+  .hero-msg{font-size:15px;line-height:1.65}
+
+  /* SEC2 */
+  #sec2{padding:48px 16px}
+  #sec2 > div > div[style*="grid-template-columns:3fr"]{
+    grid-template-columns:1fr!important
+  }
+  /* 특징 카드 2열 유지 */
+  #sec2 [style*="grid-template-columns:1fr 1fr"]{
+    grid-template-columns:1fr 1fr!important
+  }
+  .feat-card{padding:14px 12px!important}
+  .feat-key{font-size:12px!important}
+  .feat-desc{font-size:10px!important}
+
+  /* PACKAGES */
+  #packages{padding:60px 16px}
+  #packages > div > div > span{font-size:10px}
+
+  /* BOTTOM */
+  .bottom-grid>div{padding:36px 24px}
+  .dl-btn{flex-direction:column;align-items:flex-start;gap:8px}
+
+  /* FOOTER */
+  footer{padding:20px 16px;gap:8px}
 }
 
 
