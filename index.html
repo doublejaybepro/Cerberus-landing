@@ -105,6 +105,8 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
   /* NAV */
   nav{padding:0 16px}
   .nav-links{display:none}
+  .nav-btn{font-size:11px;padding:6px 12px;white-space:nowrap}
+  [id^="lang-"]{font-size:10px;padding:3px 7px}
 
   /* HERO */
   .hero{min-height:100svh;padding:80px 0 0}
@@ -134,9 +136,9 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
 /* ── 모바일 ── */
 @media(max-width:560px){
   /* NAV */
-  nav{padding:0 14px}
-  .nav-btn{font-size:12px;padding:7px 14px}
-  [id^="lang-"]{font-size:11px;padding:3px 8px}
+  nav{padding:0 12px}
+  .nav-btn{font-size:10px;padding:5px 10px;white-space:nowrap}
+  [id^="lang-"]{font-size:9px;padding:3px 6px}
 
   /* HERO */
   .hero-content{padding:44px 20px 48px}
@@ -849,7 +851,7 @@ function openTallyForm() { openTallyPopup(); }
 // 패키지 섹션 진입 시 Tally 자동 오픈
 let tallyAutoOpened = false;
 const pkgSec = document.getElementById('packages');
-if (pkgSec) {
+if (pkgSec && window.innerWidth >= 768) {
   const pkgObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting && !tallyAutoOpened) {
