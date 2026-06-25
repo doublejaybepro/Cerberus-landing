@@ -771,17 +771,17 @@ function openTallyForm() { openTallyPopup(); }
 
 // 패키지 섹션 진입 시 Tally 자동 오픈
 let tallyAutoOpened = false;
-const pkgSec = document.getElementById('packages');
-if (pkgSec && window.innerWidth >= 768) {
+const pkgCards = document.getElementById('pkg-cards');
+if (pkgCards && window.innerWidth >= 768) {
   const pkgObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting && !tallyAutoOpened) {
         tallyAutoOpened = true;
-        setTimeout(() => openTallyPopup(), 800);
+        setTimeout(() => openTallyPopup(), 600);
       }
     });
-  }, { threshold: 0.1 });
-  pkgObs.observe(pkgSec);
+  }, { threshold: 0.2 });
+  pkgObs.observe(pkgCards);
 }
 </script>
 
