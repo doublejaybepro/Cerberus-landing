@@ -4,7 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CERBERUS — BEPRO AI 스포츠 카메라</title>
-<script async src="https://tally.so/widgets/embed.js"></script>
+<script async src="https://tally.so/widgets/embed.js">
+function toggleTooltip(id) {
+  const box = document.getElementById(id);
+  if (!box) return;
+  const isShow = box.classList.contains('show');
+  document.querySelectorAll('.tooltip-box').forEach(b => { b.classList.remove('show'); b.style.top=''; b.style.left=''; });
+  document.querySelectorAll('.tooltip-btn').forEach(b => b.classList.remove('active'));
+  if (!isShow) {
+    box.classList.add('show');
+    const btn = box.previousElementSibling;
+    if (btn) btn.classList.add('active');
+  }
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.tooltip-wrap')) {
+    document.querySelectorAll('.tooltip-box').forEach(b => b.classList.remove('show'));
+    document.querySelectorAll('.tooltip-btn').forEach(b => b.classList.remove('active'));
+  }
+});
+
+</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -37,11 +57,11 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
 .hero-video-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
 .hero-video-bg video{width:100%;height:100%;object-fit:cover;opacity:.35;filter:blur(3px);transform:scale(1.05)}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.8) 40%,rgba(0,0,0,.15) 100%),radial-gradient(ellipse 60% 80% at 20% 50%,rgba(232,21,27,.15) 0%,transparent 70%);z-index:1}
-.hero-content{position:relative;z-index:2;padding:0 72px 80px;max-width:680px}
+.hero-content{position:relative;z-index:2;padding:0 72px 80px;max-width:900px}
 .hero-eyebrow{font-size:12px;font-weight:600;color:var(--red);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;display:block}
-.hero-h{font-size:clamp(42px,5.5vw,76px);font-weight:700;letter-spacing:-.04em;line-height:1.05;color:#f5f5f7;word-break:keep-all;margin-bottom:20px}
+.hero-h{font-size:clamp(28px,4vw,54px);font-weight:700;letter-spacing:-.04em;line-height:1.1;color:#f5f5f7;word-break:keep-all;margin-bottom:20px}
 .hero-h em{color:var(--red);font-style:normal;display:block}
-.hero-msg{font-size:clamp(17px,1.8vw,21px);font-weight:300;color:#ccc;line-height:1.75;word-break:keep-all;max-width:520px;margin-bottom:36px}
+.hero-msg{font-size:clamp(17px,1.8vw,21px);font-weight:300;color:#ccc;line-height:1.75;word-break:keep-all;max-width:820px;margin-bottom:36px}
 .hero-msg strong{color:var(--red);font-weight:600}
 .btn-r{background:var(--red);color:#fff;border:none;border-radius:40px;font-size:15px;font-weight:600;padding:13px 28px;cursor:pointer;text-decoration:none;display:inline-block;font-family:var(--font)}
 .btn-r:hover{opacity:.87}
@@ -150,6 +170,20 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
   footer{padding:18px 14px;gap:6px}
 }
 
+
+/* 구성품 툴팁 */
+.tooltip-wrap{position:relative;display:inline-flex;align-items:center;gap:6px}
+.tooltip-btn{width:26px;height:26px;border-radius:50%;border:none;background:var(--red);color:#fff;font-size:11px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-family:var(--font);flex-shrink:0;transition:opacity .15s}
+.tooltip-btn:hover,.tooltip-btn.active{opacity:.8}
+.tooltip-box{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1a1a1a;border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 16px;min-width:180px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9999;text-align:left}
+.tooltip-box.show{opacity:1;pointer-events:all}
+.tooltip-wrap:hover .tooltip-box{opacity:1;pointer-events:all}
+.tooltip-wrap:hover .tooltip-btn{opacity:.8}
+.tooltip-box::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#1a1a1a}
+.tooltip-title{font-size:11px;font-weight:600;color:var(--red);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;display:block}
+.tooltip-item{font-size:12px;color:#ccc;display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.tooltip-item::before{content:'';width:3px;height:3px;border-radius:50%;background:var(--red);flex-shrink:0}
+
 </style>
 
 
@@ -186,8 +220,8 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
   <div class="hero-overlay"></div>
   <div class="hero-content" id="hero-content">
     <span class="hero-eyebrow" data-i18n="hero_eyebrow">BEPRO AI 스포츠 카메라</span>
-    <h1 class="hero-h" id="hero-h1" data-i18n="hero_h1">팀의 모든 순간,<br><em><span style="color:var(--red)">케르베로스가 함께 합니다.</span></em></h1>
-    <p class="hero-msg" data-i18n="hero_msg"><span style="color:var(--red);font-weight:600">케르베로스는</span> <strong style="color:#fff;font-weight:600">경기와 훈련 촬영부터 실시간 스트리밍 및 활용, 촬영된 영상을 편집하고 팀 구성원에 공유</strong>하는 것까지 모든 과정을 함께 합니다.</p>
+    <h1 class="hero-h" id="hero-h1" data-i18n="hero_h1">촬영만으로는 부족합니다.<br><em>케르베로스는 <span style="color:var(--red)">팀을 성장</span>시킵니다.</em></h1>
+    <p class="hero-msg" data-i18n="hero_msg"><span style="color:var(--red);font-weight:600">케르베로스는</span> <strong style="color:#fff;font-weight:600">경기와 훈련 촬영부터 실시간 스트리밍 및 활용,<br>촬영된 영상을 편집하고 팀 구성원에 공유</strong>하는 것까지 모든 과정을 함께 합니다.</p>
     <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
     </div>
   </div>
@@ -197,9 +231,9 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
 <section class="sec2" id="sec2" style="height:100svh;display:flex;flex-direction:column;justify-content:center;padding:52px 24px;overflow:hidden">
   <div style="max-width:1060px;margin:0 auto;width:100%">
 
-    <div class="rv" style="text-align:center;margin-bottom:20px">
+    <div class="rv" style="text-align:center;margin-bottom:36px">
       <span class="sec-tag" data-i18n="sec2_tag">주요 기능</span>
-      <h2 style="font-size:clamp(28px,4vw,48px);font-weight:700;letter-spacing:-.03em;line-height:1.1;color:#f5f5f7">촬영하고 분석하고<br>공유하세요.</h2>
+      <h2 style="font-size:clamp(28px,4vw,48px);font-weight:700;letter-spacing:-.03em;line-height:1.1;color:#f5f5f7">촬영하고 분석하고 공유하세요.</h2>
     </div>
 
     <!-- 영상(좌) + 기능(우) -->
@@ -244,7 +278,7 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
           <span class="feat-num">01</span>
           <div class="feat-icon"><svg width="28" height="28" viewBox="0 0 36 36" fill="none" stroke="#E8151B" stroke-width="1.5"><rect x="2" y="17" width="6" height="13" rx="1.5"/><line x1="5" y1="17" x2="5" y2="8"/><line x1="2" y1="8" x2="8" y2="8"/><rect x="12" y="9" width="20" height="13" rx="2.5"/><circle cx="17" cy="15.5" r="4"/><circle cx="17" cy="15.5" r="1.8" fill="#E8151B" opacity=".15"/></svg></div>
           <p class="feat-key" style="font-size:13px">간편한 설치</p>
-          <p class="feat-desc" style="font-size:11px">설치부터 촬영까지 단 5분. 절약한 시간을 팀 훈련과 워밍업에 쏟을 수 있습니다.</p>
+          <p class="feat-desc" style="font-size:11px">설치부터 촬영까지 단 5분. 간단한 절차로 카메라를 설치하고 촬영할 수 있습니다.</p>
         </div>
 
         <div class="feat-card" style="padding:12px 16px;border-radius:12px">
@@ -258,14 +292,14 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
           <span class="feat-num">03</span>
           <div class="feat-icon"><svg width="28" height="28" viewBox="0 0 36 36" fill="none" stroke="#E8151B" stroke-width="1.5"><circle cx="18" cy="18" r="13"/><path d="M10 18 Q18 8 26 18 Q18 28 10 18Z" fill="#E8151B" opacity=".15"/><path d="M10 18 Q18 8 26 18 Q18 28 10 18Z"/><line x1="18" y1="5" x2="18" y2="2"/><line x1="18" y1="34" x2="18" y2="31"/></svg></div>
           <p class="feat-key" style="font-size:13px">실시간 스트리밍<br>& 라이브 코딩</p>
-          <p class="feat-desc" style="font-size:11px">현장 밖에서는 스트리밍으로 실시간 시청이 가능하고, 현장에서는 원하는 장면을 즉시 클립으로 만들어 하프타임에 바로 피드백할 수 있습니다.</p>
+          <p class="feat-desc" style="font-size:11px">현장 밖에서는 스트리밍으로 실시간 시청이 가능하고, 벤치에서는 원하는 장면을 즉시 클립으로 만들어 하프타임에 바로 피드백할 수 있습니다.</p>
         </div>
 
         <div class="feat-card" style="padding:12px 16px;border-radius:12px">
           <span class="feat-num">04</span>
           <div class="feat-icon"><svg width="28" height="28" viewBox="0 0 36 36" fill="none" stroke="#E8151B" stroke-width="1.5"><rect x="2" y="4" width="30" height="20" rx="2.5"/><line x1="17" y1="24" x2="17" y2="30"/><line x1="9" y1="30" x2="25" y2="30"/><line x1="8" y1="10" x2="22" y2="10"/><line x1="8" y1="15" x2="18" y2="15"/><circle cx="26" cy="21" r="4" fill="none"/><path d="M24 21l1.5 1.5 3-3" stroke="#E8151B" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <p class="feat-key" style="font-size:13px">영상 편집<br>& 공유</p>
-          <p class="feat-desc" style="font-size:11px">비프로 에디터에서 카메라 뷰 조절과 그래픽 삽입으로 편집하고, 팀원들과 바로 공유할 수 있습니다.</p>
+          <p class="feat-desc" style="font-size:11px">비프로 에디터에서 카메라 뷰 조정과 그래픽 삽입으로 편집하고, 팀원들과 바로 공유할 수 있습니다.</p>
         </div>
 
       </div>
@@ -283,111 +317,90 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
         <span class="sec-tag" data-i18n="pkg_tag">패키지 & 가격</span>
         <h2 style="font-size:clamp(28px,4vw,48px);font-weight:700;letter-spacing:-.03em;line-height:1.1;word-break:keep-all" data-i18n="pkg_h">팀에 맞는 패키지를<br>선택하세요</h2>
       </div>
-      <span style="display:inline-flex;align-items:center;font-size:11px;font-weight:600;color:var(--red);background:var(--white);border:1.5px solid var(--red);border-radius:40px;padding:5px 14px;margin-top:auto;align-self:flex-end" data-i18n="vat_note">※ 모든 가격 VAT 미포함</span>
+      <span style="display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--red);background:var(--white);border:1.5px solid var(--red);border-radius:40px;padding:5px 14px;margin-top:auto;align-self:flex-end" data-i18n="vat_note">※ 모든 가격 VAT 미포함</span>
     </div>
 
-    <!-- 패키지 카드 3열 -->
     <div id="pkg-cards-wrap">
       <div style="display:grid;gap:14px" class="rv d1" id="pkg-cards">
 
-        <!-- 패키지 1 -->
-        <div style="background:var(--white);border:1px solid var(--g4);border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
-          <div style="text-align:center;padding-top:0"><span style="background:transparent;font-size:10px;font-weight:700;padding:5px 22px;border-radius:0 0 10px 10px;display:inline-block;visibility:hidden">추천</span></div>
-          <div style="padding:16px 24px 0">
-            <span style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:.08em;text-transform:uppercase" data-i18n="pkg1_num">패키지 1</span>
-            <p style="font-size:15px;font-weight:700;line-height:1.45;word-break:keep-all;margin-top:8px;margin-bottom:20px;min-height:52px" data-i18n="pkg1_name">카메라<br>+ 구독료</p>
-            <div>
-            <div style="border-bottom:1px solid var(--g5);padding-bottom:10px;margin-bottom:10px">
-              <span style="font-size:11px;color:var(--g3);display:block;margin-bottom:2px" data-i18n="item_camera">CERBERUS 카메라</span>
-              <span style="font-size:15px;font-weight:700;display:block" data-price="camera_w">3,000,000원</span>
-            </div>
-            <div style="border-bottom:1px solid var(--g5);padding-bottom:10px;margin-bottom:10px">
-              <span style="font-size:11px;color:var(--g3);display:block;margin-bottom:2px" data-i18n="item_sub">구독료 (1년)</span>
-              <span style="font-size:15px;font-weight:700;display:block" data-price="sub_w">1,000,000원</span>
-            </div>
-            <div style="padding-bottom:10px;margin-bottom:10px;visibility:hidden;border-bottom:1px solid transparent"><span style="font-size:11px;display:block;margin-bottom:2px">-</span><span style="font-size:15px;font-weight:700;display:block">-</span></div>
-            </div>
-            <div style="border-top:1px solid var(--g4);padding-top:14px;margin-bottom:20px">
-              <span style="font-size:10px;font-weight:600;color:var(--g3);letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:4px" data-i18n="total_label">합계</span>
-              <span style="font-size:26px;font-weight:700;color:var(--red);letter-spacing:-.03em;display:block" data-price="total1" class="pkg-total-price">4,000,000원</span>
-            </div>
-          </div>
-          <div style="padding:16px 24px 24px;border-top:1px solid var(--g5);flex:1">
-            <p style="font-size:10px;font-weight:600;color:var(--g3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px" data-i18n="inc_title_sub">구독료 포함 항목</p>
-            <div style="display:flex;flex-direction:column;gap:7px">
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--g1)"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);flex-shrink:0"></div><span data-i18n="inc_editor">BEPRO Editor</span></div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--g1)"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);flex-shrink:0"></div><span data-i18n="inc_space">BEPRO Space</span></div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--g1)"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);flex-shrink:0"></div><span data-i18n="inc_accounts">계정 수 무제한</span></div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--g1)"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);flex-shrink:0"></div><span data-i18n="inc_support">기술 지원 및 교육</span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 패키지 2 (추천) -->
-        <div style="background:var(--black);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;position:relative">
+        <!-- 패키지 1 (추천) -->
+        <div style="background:var(--black);border-radius:16px;overflow:visible;display:flex;flex-direction:column;position:relative">
           <div style="text-align:center;padding-top:0">
             <span style="background:var(--red);color:#fff;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 22px;border-radius:0 0 10px 10px;display:inline-block" data-i18n="badge_rec">추천</span>
           </div>
-          <div style="padding:16px 24px 0">
-            <span style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:.08em;text-transform:uppercase" data-i18n="pkg2_num">패키지 2</span>
-            <p style="font-size:15px;font-weight:700;line-height:1.45;word-break:keep-all;margin-top:8px;margin-bottom:20px;min-height:52px;color:#f5f5f7" data-i18n="pkg2_name">카메라 + 구독료<br>+ 사각대</p>
+          <div style="padding:16px 24px 24px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <span style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:.08em;text-transform:uppercase" data-i18n="pkg1_num">패키지 1</span>
+              <div style="display:flex;align-items:center;gap:5px"><span style="font-size:11px;font-weight:600;color:#aaa">구성품 :</span><div class="tooltip-wrap"><button class="tooltip-btn" onclick="toggleTooltip('tt-cam1')" style="width:22px;height:22px;border-radius:50%;border:none;background:var(--red);color:#fff;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3h-3l-2 4H8L6 3H3"/><circle cx="12" cy="14" r="3"/></svg></button><div class="tooltip-box" id="tt-cam1"><span class="tooltip-title">카메라 구성품</span><div class="tooltip-item">카메라 가방</div><div class="tooltip-item">카메라 마운트</div><div class="tooltip-item">변환 나사</div><div class="tooltip-item">충전기</div></div></div><div class="tooltip-wrap"><button class="tooltip-btn" onclick="toggleTooltip('tt-tri1')" style="width:22px;height:22px;border-radius:50%;border:none;background:var(--red);color:#fff;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="10"/><line x1="12" y1="10" x2="5" y2="22"/><line x1="12" y1="10" x2="19" y2="22"/><line x1="12" y1="10" x2="12" y2="22"/><line x1="7" y1="18" x2="17" y2="18"/></svg></button><div class="tooltip-box" id="tt-tri1"><span class="tooltip-title">사각대 구성품</span><div class="tooltip-item">BEPRO 사각대 본체</div><div class="tooltip-item">설치 가이드 포함</div><div class="tooltip-item">사각대 가방</div><div class="tooltip-item">스태빌라이저</div></div></div><div class="tooltip-wrap"><button class="tooltip-btn" onclick="toggleTooltip('tt-sub1')" style="width:22px;height:22px;border-radius:50%;border:none;background:var(--red);color:#fff;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><polyline points="7 10 10 13 17 8"/></svg></button><div class="tooltip-box" id="tt-sub1"><span class="tooltip-title">구독료 포함</span><div class="tooltip-item">BEPRO Editor</div><div class="tooltip-item">BEPRO Space</div><div class="tooltip-item">계정 수 무제한</div><div class="tooltip-item">기술 지원 및 교육</div></div></div></div>
+            </div>
+            <p style="font-size:15px;font-weight:700;line-height:1.45;word-break:keep-all;margin:0 0 20px;min-height:52px;color:#f5f5f7" data-i18n="pkg1_name">카메라 + 구독료<br>+ 사각대</p>
             <div>
-            <div style="border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:10px;margin-bottom:10px">
-              <span style="font-size:11px;color:#555;display:block;margin-bottom:2px" data-i18n="item_camera">CERBERUS 카메라</span>
-              <span style="font-size:15px;font-weight:700;color:#f5f5f7;display:block" data-price="camera_b">3,000,000원</span>
+              <div style="border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:10px;margin-bottom:10px">
+                <span style="font-size:11px;color:#555;display:block;margin-bottom:2px" data-i18n="item_camera">CERBERUS 카메라</span>
+                <span style="font-size:15px;font-weight:700;color:#f5f5f7;display:block" data-price="camera_b">3,000,000원</span>
+              </div>
+              <div style="border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:10px;margin-bottom:10px">
+                <span style="font-size:11px;color:#555;display:block;margin-bottom:2px" data-i18n="item_sub">구독료 (1년)</span>
+                <span style="font-size:15px;font-weight:700;color:#f5f5f7;display:block" data-price="sub_b">1,000,000원</span>
+              </div>
+              <div style="padding-bottom:10px;margin-bottom:10px">
+                <span style="font-size:11px;color:#555;display:block;margin-bottom:2px" data-i18n="item_quadpod">BEPRO 사각대</span>
+                <span style="font-size:15px;font-weight:700;color:#f5f5f7;display:block" data-price="quad_b">500,000원</span>
+              </div>
             </div>
-            <div style="border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:10px;margin-bottom:10px">
-              <span style="font-size:11px;color:#555;display:block;margin-bottom:2px" data-i18n="item_sub">구독료 (1년)</span>
-              <span style="font-size:15px;font-weight:700;color:#f5f5f7;display:block" data-price="sub_b">1,000,000원</span>
-            </div>
-            <div style="padding-bottom:10px;margin-bottom:10px">
-              <span style="font-size:11px;color:#555;display:block;margin-bottom:2px" data-i18n="item_quadpod">BEPRO 사각대</span>
-              <span style="font-size:15px;font-weight:700;color:#f5f5f7;display:block" data-price="quad_b">500,000원</span>
-            </div>
-            </div>
-            <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:14px;margin-bottom:20px">
+            <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:14px">
               <span style="font-size:10px;font-weight:600;color:#555;letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:4px" data-i18n="total_label">합계</span>
               <span style="font-size:26px;font-weight:700;color:var(--red);letter-spacing:-.03em;display:block" data-price="total2" class="pkg-total-price">4,500,000원</span>
             </div>
           </div>
-          <div style="padding:16px 24px 24px;border-top:1px solid rgba(255,255,255,.08);flex:1">
-            <p style="font-size:10px;font-weight:600;color:#444;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px" data-i18n="inc_title_sub">구독료 포함 항목</p>
-            <div style="display:flex;flex-direction:column;gap:7px">
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#86868b"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);flex-shrink:0"></div><span data-i18n="inc_editor">BEPRO Editor</span></div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#86868b"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);flex-shrink:0"></div><span data-i18n="inc_space">BEPRO Space</span></div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#86868b"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);flex-shrink:0"></div><span data-i18n="inc_accounts">계정 수 무제한</span></div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#86868b"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);flex-shrink:0"></div><span data-i18n="inc_support">기술 지원 및 교육</span></div>
+        </div>
+
+        <!-- 패키지 2 -->
+        <div style="background:var(--white);border:1px solid var(--g4);border-radius:16px;overflow:visible;display:flex;flex-direction:column">
+          <div style="text-align:center;padding-top:0"><span style="visibility:hidden;font-size:10px;padding:5px 22px;border-radius:0 0 10px 10px;display:inline-block">추천</span></div>
+          <div style="padding:16px 24px 24px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <span style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:.08em;text-transform:uppercase" data-i18n="pkg2_num">패키지 2</span>
+              <div style="display:flex;align-items:center;gap:5px"><span style="font-size:11px;font-weight:600;color:var(--g2)">구성품 :</span><div class="tooltip-wrap"><button class="tooltip-btn" onclick="toggleTooltip('tt-cam2')" style="width:22px;height:22px;border-radius:50%;border:none;background:var(--red);color:#fff;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3h-3l-2 4H8L6 3H3"/><circle cx="12" cy="14" r="3"/></svg></button><div class="tooltip-box" id="tt-cam2"><span class="tooltip-title">카메라 구성품</span><div class="tooltip-item">카메라 가방</div><div class="tooltip-item">카메라 마운트</div><div class="tooltip-item">변환 나사</div><div class="tooltip-item">충전기</div></div></div><div class="tooltip-wrap"><button class="tooltip-btn" onclick="toggleTooltip('tt-sub2')" style="width:22px;height:22px;border-radius:50%;border:none;background:var(--red);color:#fff;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><polyline points="7 10 10 13 17 8"/></svg></button><div class="tooltip-box" id="tt-sub2"><span class="tooltip-title">구독료 포함</span><div class="tooltip-item">BEPRO Editor</div><div class="tooltip-item">BEPRO Space</div><div class="tooltip-item">계정 수 무제한</div><div class="tooltip-item">기술 지원 및 교육</div></div></div></div>
+            </div>
+            <p style="font-size:15px;font-weight:700;line-height:1.45;word-break:keep-all;margin:0 0 20px;min-height:52px;color:var(--black)" data-i18n="pkg2_name">카메라 + 구독료</p>
+            <div>
+              <div style="border-bottom:1px solid var(--g5);padding-bottom:10px;margin-bottom:10px">
+                <span style="font-size:11px;color:var(--g3);display:block;margin-bottom:2px" data-i18n="item_camera">CERBERUS 카메라</span>
+                <span style="font-size:15px;font-weight:700;display:block" data-price="camera_w">3,000,000원</span>
+              </div>
+              <div style="border-bottom:1px solid var(--g5);padding-bottom:10px;margin-bottom:10px">
+                <span style="font-size:11px;color:var(--g3);display:block;margin-bottom:2px" data-i18n="item_sub">구독료 (1년)</span>
+                <span style="font-size:15px;font-weight:700;display:block" data-price="sub_w">1,000,000원</span>
+              </div>
+              <div style="padding-bottom:10px;margin-bottom:10px;visibility:hidden;border-bottom:1px solid transparent"><span style="font-size:11px;display:block;margin-bottom:2px">-</span><span style="font-size:15px;font-weight:700;display:block">-</span></div>
+            </div>
+            <div style="border-top:1px solid var(--g4);padding-top:14px">
+              <span style="font-size:10px;font-weight:600;color:var(--g3);letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:4px" data-i18n="total_label">합계</span>
+              <span style="font-size:26px;font-weight:700;color:var(--red);letter-spacing:-.03em;display:block" data-price="total1" class="pkg-total-price">4,000,000원</span>
             </div>
           </div>
         </div>
 
         <!-- 패키지 3 -->
-        <div style="background:var(--white);border:1px solid var(--g4);border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
-          <div style="text-align:center;padding-top:0"><span style="background:transparent;font-size:10px;font-weight:700;padding:5px 22px;border-radius:0 0 10px 10px;display:inline-block;visibility:hidden">추천</span></div>
-          <div style="padding:16px 24px 0">
-            <span style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:.08em;text-transform:uppercase" data-i18n="pkg3_num">패키지 3</span>
-            <p style="font-size:15px;font-weight:700;line-height:1.45;word-break:keep-all;margin-top:8px;margin-bottom:20px;min-height:52px" data-i18n="pkg3_name">BEPRO 사각대</p>
+        <div style="background:var(--white);border:1px solid var(--g4);border-radius:16px;overflow:visible;display:flex;flex-direction:column">
+          <div style="text-align:center;padding-top:0"><span style="visibility:hidden;font-size:10px;padding:5px 22px;border-radius:0 0 10px 10px;display:inline-block">추천</span></div>
+          <div style="padding:16px 24px 24px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <span style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:.08em;text-transform:uppercase" data-i18n="pkg3_num">패키지 3</span>
+              <div style="display:flex;align-items:center;gap:5px"><span style="font-size:11px;font-weight:600;color:var(--g2)">구성품 :</span><div class="tooltip-wrap"><button class="tooltip-btn" onclick="toggleTooltip('tt-tri3')" style="width:22px;height:22px;border-radius:50%;border:none;background:var(--red);color:#fff;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="10"/><line x1="12" y1="10" x2="5" y2="22"/><line x1="12" y1="10" x2="19" y2="22"/><line x1="12" y1="10" x2="12" y2="22"/><line x1="7" y1="18" x2="17" y2="18"/></svg></button><div class="tooltip-box" id="tt-tri3"><span class="tooltip-title">사각대 구성품</span><div class="tooltip-item">BEPRO 사각대 본체</div><div class="tooltip-item">설치 가이드 포함</div><div class="tooltip-item">사각대 가방</div><div class="tooltip-item">스태빌라이저</div></div></div></div>
+            </div>
+            <p style="font-size:15px;font-weight:700;line-height:1.45;word-break:keep-all;margin:0 0 20px;min-height:52px;color:var(--black)" data-i18n="pkg3_name">사각대</p>
             <div>
-            <div style="border-bottom:1px solid var(--g5);padding-bottom:10px;margin-bottom:10px">
-              <span style="font-size:11px;color:var(--g3);display:block;margin-bottom:2px" data-i18n="item_quadpod">BEPRO 사각대</span>
-              <span style="font-size:15px;font-weight:700;display:block" data-price="quad_w">500,000원</span>
+              <div style="border-bottom:1px solid var(--g5);padding-bottom:10px;margin-bottom:10px">
+                <span style="font-size:11px;color:var(--g3);display:block;margin-bottom:2px" data-i18n="item_quadpod">BEPRO 사각대</span>
+                <span style="font-size:15px;font-weight:700;display:block" data-price="quad_w">500,000원</span>
+              </div>
+              <div style="padding-bottom:10px;margin-bottom:10px;visibility:hidden;border-bottom:1px solid transparent"><span style="font-size:11px;display:block;margin-bottom:2px">-</span><span style="font-size:15px;font-weight:700;display:block">-</span></div><div style="padding-bottom:10px;margin-bottom:10px;visibility:hidden;border-bottom:1px solid transparent"><span style="font-size:11px;display:block;margin-bottom:2px">-</span><span style="font-size:15px;font-weight:700;display:block">-</span></div>
             </div>
-            <div style="padding-bottom:10px;margin-bottom:10px;visibility:hidden;border-bottom:1px solid transparent"><span style="font-size:11px;display:block;margin-bottom:2px">-</span><span style="font-size:15px;font-weight:700;display:block">-</span></div>
-            <div style="padding-bottom:10px;margin-bottom:10px;visibility:hidden"><span style="font-size:11px;display:block;margin-bottom:2px">-</span><span style="font-size:15px;font-weight:700;display:block">-</span></div>
-            </div>
-            <div style="border-top:1px solid var(--g4);padding-top:14px;margin-bottom:20px">
+            <div style="border-top:1px solid var(--g4);padding-top:14px">
               <span style="font-size:10px;font-weight:600;color:var(--g3);letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:4px" data-i18n="total_label">합계</span>
               <span style="font-size:26px;font-weight:700;color:var(--red);letter-spacing:-.03em;display:block" data-price="total3" class="pkg-total-price">500,000원</span>
-            </div>
-          </div>
-          <div style="padding:16px 24px 24px;border-top:1px solid var(--g5);flex:1">
-            <p style="font-size:10px;font-weight:600;color:var(--g3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px" data-i18n="inc_title_pkg3">포함 항목</p>
-            <div style="display:flex;flex-direction:column;gap:7px">
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--g1)"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);flex-shrink:0"></div><span data-i18n="inc_quadpod_body">BEPRO 사각대 본체</span></div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--g1)"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);flex-shrink:0"></div><span data-i18n="inc_mount">케르베로스 마운트 호환</span></div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--g1)"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);flex-shrink:0"></div><span data-i18n="inc_guide">설치 가이드 포함</span></div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--g1)"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);flex-shrink:0"></div><span data-i18n="inc_bag">사각대 가방</span></div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--g1)"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);flex-shrink:0"></div><span data-i18n="inc_stabilizer">스태빌라이저</span></div>
             </div>
           </div>
         </div>
@@ -503,12 +516,12 @@ const translations = {
     nav_price: '가격',
     nav_brochure: '소개자료',
     hero_eyebrow: 'BEPRO AI 스포츠 카메라',
-    hero_h1: '팀의 모든 순간,<br><em><span style="color:var(--red)">케르베로스</span><span style=\"color:#f5f5f7\">가 함께 합니다.</span></em>',
-    hero_msg: '케르베로스는 <strong style="color:#fff;font-weight:600">경기와 훈련 촬영부터 실시간 스트리밍 및 활용, 촬영된 영상을 편집하고 팀 구성원에 공유</strong>하는 것까지 모든 과정을 함께 합니다.',
+    hero_h1: '촬영만으로는 부족합니다.<br><em>케르베로스는 <span style=\"color:var(--red)\">팀을 성장</span>시킵니다.</em>',
+    hero_msg: '<strong style=\"color:#fff;font-weight:600\">다른 카메라는 영상을 남깁니다.<br>케르베로스는 팀을 성장시킵니다.</strong>',
     hero_btn1: '구매 문의하기',
     hero_btn2: '소개자료 다운로드',
     sec2_tag: '주요 기능',
-    sec2_h: '촬영하고 분석하고<br>공유하세요.',
+    sec2_h: '촬영하고 분석하고 공유하세요.',
     pkg_tag: '패키지 & 가격',
     pkg_h: '팀에 맞는 패키지를<br>선택하세요',
     dl_tag: '소개자료',
@@ -521,9 +534,9 @@ const translations = {
     contact_other: '기타 문의',
     contact_btn: '견적 문의하기 →',
     pkg1_num: '패키지 1', pkg2_num: '패키지 2', pkg3_num: '패키지 3',
-    pkg1_name: '카메라<br>+ 구독료',
+    pkg1_name: '카메라 + 구독료',
     pkg2_name: '카메라 + 구독료<br>+ 사각대',
-    pkg3_name: 'BEPRO 사각대',
+    pkg3_name: '사각대',
     item_camera: 'CERBERUS 카메라', item_sub: '구독료 (1년)', item_quadpod: 'BEPRO 사각대',
     total_label: '합계',
     inc_title_sub: '구독료 포함 항목', inc_title_pkg3: '포함 항목',
@@ -712,10 +725,10 @@ function setLang(lang) {
   const featKeys  = document.querySelectorAll('.feat-key');
   const featTexts = {
     ko: [
-      ['간편한 설치', '설치부터 촬영까지 단 5분. 절약한 시간을 팀 훈련과 워밍업에 쏟을 수 있습니다.'],
+      ['간편한 설치', '설치부터 촬영까지 단 5분. 간단한 절차로 카메라를 설치하고 촬영할 수 있습니다.'],
       ['경기 & 훈련<br>자동 촬영', '카메라 조작 없이, 케르베로스가 사각지대 없이 경기장 내 모든 장면을 자동으로 촬영합니다.'],
-      ['실시간 스트리밍<br>& 라이브 코딩', '현장 밖에서는 스트리밍으로 실시간 시청이 가능하고, 현장에서는 원하는 장면을 즉시 클립으로 만들어 하프타임에 바로 피드백할 수 있습니다.'],
-      ['영상 편집<br>& 공유', '비프로 에디터에서 카메라 뷰 조절과 그래픽 삽입으로 편집하고, 팀원들과 바로 공유할 수 있습니다.'],
+      ['실시간 스트리밍<br>& 라이브 코딩', '현장 밖에서는 스트리밍으로 실시간 시청이 가능하고, 벤치에서는 원하는 장면을 즉시 클립으로 만들어 하프타임에 바로 피드백할 수 있습니다.'],
+      ['영상 편집<br>& 공유', '비프로 에디터에서 카메라 뷰 조정과 그래픽 삽입으로 편집하고, 팀원들과 바로 공유할 수 있습니다.'],
     ],
     en: [
       ['Easy Setup', 'From setup to recording in just 5 minutes. Spend that saved time on training and warm-ups instead.'],
