@@ -101,14 +101,14 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
 
 /* 특징 4개 카드 */
 .feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:48px}
-.feat-card{background:#111;padding:20px 18px;position:relative;overflow:hidden;transition:background .2s;border-radius:12px}
+.feat-card{background:#111;padding:22px 20px;position:relative;overflow:hidden;transition:background .2s;border-radius:12px}
 .feat-card:hover{background:#1a1a1a}
 .feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .35s}
 .feat-card:hover::before{transform:scaleX(1)}
 .feat-num{font-size:10px;font-weight:700;color:var(--red);letter-spacing:.14em;margin-bottom:6px;display:block}
-.feat-icon{margin-bottom:6px}
-.feat-key{font-size:14px;font-weight:700;letter-spacing:-.02em;color:#f5f5f7;margin-bottom:6px;word-break:keep-all;line-height:1.3;min-height:36px;display:flex;align-items:flex-start;flex-direction:column;justify-content:flex-start}
-.feat-desc{font-size:12px;color:#86868b;line-height:1.55;word-break:keep-all}
+.feat-icon{margin-bottom:8px}
+.feat-key{font-size:15px;font-weight:700;letter-spacing:-.02em;color:#f5f5f7;margin-bottom:8px;word-break:keep-all;line-height:1.3;min-height:40px;display:flex;align-items:flex-start;flex-direction:column;justify-content:flex-start}
+.feat-desc{font-size:12.5px;color:#86868b;line-height:1.6;word-break:keep-all}
 
 /* PACKAGES */
 .pkg-sec{padding:100px 24px;background:var(--g5)}
@@ -158,9 +158,9 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
   .hero-msg{font-size:14px;line-height:1.6}
 
   #sec2{padding:40px 14px}
-  .feat-card{padding:12px 10px!important}
-  .feat-key{font-size:11px!important}
-  .feat-desc{font-size:10px!important}
+  .feat-card{padding:16px 14px!important}
+  .feat-key{font-size:13px!important}
+  .feat-desc{font-size:11px!important}
 
   .bottom-grid{grid-template-columns:1fr!important}
   .bottom-grid>div{padding:32px 20px}
@@ -228,10 +228,10 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
 </section>
 
 <!-- ② 영상 + 특징 -->
-<section class="sec2" id="sec2" style="height:100svh;display:flex;flex-direction:column;justify-content:center;padding:52px 24px;overflow:hidden">
+<section class="sec2" id="sec2" style="height:100svh;display:flex;flex-direction:column;justify-content:center;padding:40px 24px;overflow:hidden">
   <div style="max-width:1060px;margin:0 auto;width:100%">
 
-    <div class="rv" style="text-align:center;margin-bottom:36px"><span class="sec-tag" data-i18n="sec2_tag">주요 기능</span></div>
+    <div class="rv" style="text-align:center;margin-bottom:36px"><span class="sec-tag" style="font-size:16px" data-i18n="sec2_tag">주요 기능</span></div>
 
     <!-- 영상(좌) + 기능(우) -->
     <div style="display:grid;grid-template-columns:3fr 2fr;gap:16px;align-items:stretch" class="rv d1">
@@ -264,6 +264,13 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
               
             </div>
           </div>
+
+          <!-- 슬라이드 4 -->
+          <div class="slide">
+            <div class="video-box">
+              <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"><source src="/cerberus_demo4.mp4" type="video/mp4"></video>
+            </div>
+          </div>
         </div>
         <div class="slider-ctrl" style="margin-top:10px"><div class="dots" id="dots"></div></div>
       </div>
@@ -273,30 +280,30 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
 
         <div class="feat-card" style="padding:12px 16px;border-radius:12px">
           <span class="feat-num">01</span>
-          <div class="feat-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E8151B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-          <p class="feat-key" style="font-size:13px">간편한 설치</p>
-          <p class="feat-desc" style="font-size:11px">설치부터 촬영까지 단 5분. 간단한 절차로 카메라를 설치하고 촬영할 수 있습니다.</p>
+          <div class="feat-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#E8151B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+          <p class="feat-key" style="font-size:13px" data-i18n="feat1_key">간편한 설치</p>
+          <p class="feat-desc" style="font-size:11px" data-i18n="feat1_desc">설치부터 촬영까지 단 5분. 간단한 절차로 카메라를 설치하고 촬영할 수 있습니다.</p>
         </div>
 
         <div class="feat-card" style="padding:12px 16px;border-radius:12px">
           <span class="feat-num">02</span>
-          <div class="feat-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E8151B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/><circle cx="8" cy="12" r="3"/></svg></div>
-          <p class="feat-key" style="font-size:13px">경기 & 훈련<br>자동 촬영</p>
-          <p class="feat-desc" style="font-size:11px">카메라 조작 없이, 케르베로스가 사각지대 없이 경기장 내 모든 장면을 자동으로 촬영합니다.</p>
+          <div class="feat-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#E8151B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/><circle cx="8" cy="12" r="3"/></svg></div>
+          <p class="feat-key" style="font-size:13px" data-i18n="feat2_key">경기 & 훈련<br>자동 촬영</p>
+          <p class="feat-desc" style="font-size:11px" data-i18n="feat2_desc">카메라 조작 없이, 케르베로스가 사각지대 없이 경기장 내 모든 장면을 자동으로 촬영합니다.</p>
         </div>
 
         <div class="feat-card" style="padding:12px 16px;border-radius:12px">
           <span class="feat-num">03</span>
-          <div class="feat-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E8151B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49"/><path d="M7.76 7.76a6 6 0 0 0 0 8.49"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div>
-          <p class="feat-key" style="font-size:13px">실시간 스트리밍<br>& 라이브 코딩</p>
-          <p class="feat-desc" style="font-size:11px">현장 밖에서는 스트리밍으로 실시간 시청이 가능하고, 벤치에서는 원하는 장면을 즉시 클립으로 만들어 하프타임에 바로 피드백할 수 있습니다.</p>
+          <div class="feat-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#E8151B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49"/><path d="M7.76 7.76a6 6 0 0 0 0 8.49"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div>
+          <p class="feat-key" style="font-size:13px" data-i18n="feat3_key">실시간 스트리밍<br>& 라이브 코딩</p>
+          <p class="feat-desc" style="font-size:11px" data-i18n="feat3_desc">현장 밖에서는 스트리밍으로 실시간 시청이 가능하고, 벤치에서는 원하는 장면을 즉시 클립으로 만들어 하프타임에 바로 피드백할 수 있습니다.</p>
         </div>
 
         <div class="feat-card" style="padding:12px 16px;border-radius:12px">
           <span class="feat-num">04</span>
-          <div class="feat-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E8151B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
-          <p class="feat-key" style="font-size:13px">영상 편집<br>& 공유</p>
-          <p class="feat-desc" style="font-size:11px">비프로 에디터에서 카메라 뷰 조정과 그래픽 삽입으로 편집하고, 팀원들과 바로 공유할 수 있습니다.</p>
+          <div class="feat-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#E8151B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
+          <p class="feat-key" style="font-size:13px" data-i18n="feat4_key">영상 편집<br>& 공유</p>
+          <p class="feat-desc" style="font-size:11px" data-i18n="feat4_desc">비프로 에디터에서 카메라 뷰 조정과 그래픽 삽입으로 편집하고, 팀원들과 바로 공유할 수 있습니다.</p>
         </div>
 
       </div>
@@ -539,6 +546,14 @@ const translations = {
     inc_quadpod_body: 'BEPRO 사각대 본체', inc_mount: '케르베로스 마운트 호환', inc_guide: '설치 가이드 포함',
     badge_rec: '추천',
     inc_bag: '사각대 가방', inc_stabilizer: '스태빌라이저', vat_note: '※ 모든 가격 VAT 미포함',
+    feat1_key: '간편한 설치',
+    feat1_desc: '설치부터 촬영까지 단 5분. 간단한 절차로 카메라를 설치하고 촬영할 수 있습니다.',
+    feat2_key: '경기 & 훈련<br>자동 촬영',
+    feat2_desc: '카메라 조작 없이, 케르베로스가 사각지대 없이 경기장 내 모든 장면을 자동으로 촬영합니다.',
+    feat3_key: '실시간 스트리밍<br>& 라이브 코딩',
+    feat3_desc: '현장 밖에서는 스트리밍으로 실시간 시청이 가능하고, 벤치에서는 원하는 장면을 즉시 클립으로 만들어 하프타임에 바로 피드백할 수 있습니다.',
+    feat4_key: '영상 편집<br>& 공유',
+    feat4_desc: '비프로 에디터에서 카메라 뷰 조정과 그래픽 삽입으로 편집하고, 팀원들과 바로 공유할 수 있습니다.',
   },
   en: {
     nav_cta: 'Inquiry',
@@ -575,6 +590,14 @@ const translations = {
     inc_quadpod_body: 'BEPRO Quadpod Unit', inc_mount: 'CERBERUS Mount Compatible', inc_guide: 'Installation Guide Included',
     badge_rec: 'Recommended',
     inc_bag: 'Quadpod Bag', inc_stabilizer: 'Stabilizer', vat_note: '※ All prices exclude VAT',
+    feat1_key: 'Quick Setup',
+    feat1_desc: 'From setup to recording in just 5 minutes. Install the camera and start filming with a simple process.',
+    feat2_key: 'Auto Recording<br>— Match & Training',
+    feat2_desc: 'No manual operation needed. CERBERUS automatically captures every moment on the pitch with zero blind spots.',
+    feat3_key: 'Live Streaming<br>& Live Coding',
+    feat3_desc: 'Stream live from outside the venue, or clip any moment instantly from the bench for halftime feedback.',
+    feat4_key: 'Video Editing<br>& Sharing',
+    feat4_desc: 'Edit with BEPRO Editor using camera view adjustments and graphic overlays, then share instantly with your team.',
   },
   ja: {
     nav_cta: 'お問い合わせ',
@@ -611,6 +634,14 @@ const translations = {
     inc_quadpod_body: 'BEPRO 三脚本体', inc_mount: 'CERBERUSマウント対応', inc_guide: '設置ガイド付き',
     badge_rec: 'おすすめ',
     inc_bag: '三脚バッグ', inc_stabilizer: 'スタビライザー', vat_note: '※ 全価格は税別（VAT除く）',
+    feat1_key: '簡単セットアップ',
+    feat1_desc: 'セットアップから撮影まで5分。簡単な手順でカメラを設置して撮影できます。',
+    feat2_key: '試合＆練習<br>自動撮影',
+    feat2_desc: 'カメラ操作不要。CERBERUSがフィールド内のすべてのシーンを死角なく自動で撮影します。',
+    feat3_key: 'ライブ配信<br>＆ライブコーディング',
+    feat3_desc: '会場外からはライブ配信でリアルタイム視聴が可能。ベンチでは任意のシーンをすぐクリップ化してハーフタイムにフィードバックできます。',
+    feat4_key: '映像編集<br>＆共有',
+    feat4_desc: 'BEPROエディターでカメラビューの調整とグラフィック挿入で編集し、チームメンバーとすぐに共有できます。',
   }
 };
 
