@@ -195,6 +195,9 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
 .thumb-label{position:absolute;bottom:0;left:0;right:0;padding:4px 6px;font-size:10px;font-weight:700;color:#fff;letter-spacing:.04em;text-align:center;background:linear-gradient(transparent,rgba(0,0,0,.7));pointer-events:none}
 .thumb-btn.active .thumb-label{color:var(--red)}
 
+
+.thumb-btn:hover .thumb-dim,.thumb-btn.active .thumb-dim{opacity:.5}
+
 </style>
 
 
@@ -248,17 +251,17 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
     <div style="display:grid;grid-template-columns:3fr 2fr;gap:16px;align-items:stretch" class="rv d1">
 
       <!-- 왼쪽: 메인 영상 + 썸네일 -->
-      <div style="display:flex;flex-direction:column;gap:8px" id="video-panel">
-        <div class="video-box" id="main-video-box" style="border-radius:12px;overflow:hidden;flex:1">
+      <div style="display:flex;flex-direction:column;gap:8px;contain:layout" id="video-panel">
+        <div class="video-box" id="main-video-box" style="border-radius:12px;overflow:hidden;flex:1;contain:paint">
           <video id="main-video" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover">
             <source src="/cerberus_demo1.mp4" type="video/mp4">
           </video>
         </div>
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px" id="thumb-row">
-          <button class="thumb-btn active" onclick="switchVideo(0)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo1.mp4#t=0.5" type="video/mp4"></video><span class="thumb-label">경기</span></button>
-          <button class="thumb-btn" onclick="switchVideo(1)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo2.mp4#t=0.5" type="video/mp4"></video><span class="thumb-label">훈련</span></button>
-          <button class="thumb-btn" onclick="switchVideo(2)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo3.mp4#t=0.5" type="video/mp4"></video><span class="thumb-label">유소년</span></button>
-          <button class="thumb-btn" onclick="switchVideo(3)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo4.mp4#t=0.5" type="video/mp4"></video><span class="thumb-label">농구</span></button>
+          <button class="thumb-btn active" onclick="switchVideo(0)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo1.mp4#t=0.5" type="video/mp4"></video><div style="position:absolute;inset:0;background:rgba(0,0,0,.45);pointer-events:none;transition:opacity .2s" class="thumb-dim"></div><span class="thumb-label">경기</span></button>
+          <button class="thumb-btn" onclick="switchVideo(1)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo2.mp4#t=0.5" type="video/mp4"></video><div style="position:absolute;inset:0;background:rgba(0,0,0,.45);pointer-events:none;transition:opacity .2s" class="thumb-dim"></div><span class="thumb-label">훈련</span></button>
+          <button class="thumb-btn" onclick="switchVideo(2)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo3.mp4#t=0.5" type="video/mp4"></video><div style="position:absolute;inset:0;background:rgba(0,0,0,.45);pointer-events:none;transition:opacity .2s" class="thumb-dim"></div><span class="thumb-label">유소년</span></button>
+          <button class="thumb-btn" onclick="switchVideo(3)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo4.mp4#t=0.5" type="video/mp4"></video><div style="position:absolute;inset:0;background:rgba(0,0,0,.45);pointer-events:none;transition:opacity .2s" class="thumb-dim"></div><span class="thumb-label">농구</span></button>
         </div>
       </div>
 
