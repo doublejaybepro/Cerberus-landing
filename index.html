@@ -24,6 +24,8 @@ document.addEventListener('click', function(e) {
   }
 });
 
+
+
 </script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -184,6 +186,13 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
 .tooltip-item{font-size:12px;color:#ccc;display:flex;align-items:center;gap:6px;margin-bottom:4px}
 .tooltip-item::before{content:'';width:3px;height:3px;border-radius:50%;background:var(--red);flex-shrink:0}
 
+
+/* VIDEO PANEL */
+#main-video-box{min-height:0}
+.thumb-btn{padding:0;border:2px solid rgba(255,255,255,.15);border-radius:8px;overflow:hidden;cursor:pointer;background:#111;aspect-ratio:16/9;transition:border-color .2s;width:100%}
+.thumb-btn:hover{border-color:rgba(255,255,255,.5)}
+.thumb-btn.active{border-color:var(--red)}
+
 </style>
 
 
@@ -206,7 +215,7 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
       <button onclick="setLang('en')" id="lang-en" style="font-size:12px;font-weight:600;color:rgba(255,255,255,.6);background:transparent;border:none;border-radius:16px;padding:4px 10px;cursor:pointer;font-family:var(--font);transition:background .15s">EN</button>
       <button onclick="setLang('ja')" id="lang-ja" style="font-size:12px;font-weight:600;color:rgba(255,255,255,.6);background:transparent;border:none;border-radius:16px;padding:4px 10px;cursor:pointer;font-family:var(--font);transition:background .15s">JP</button>
     </div>
-    <button class="nav-btn" id="nav-cta-btn" onclick="location.href='https://tally.so/r/A7jpZz'" data-i18n="nav_cta">견적 문의</button>
+    <a href="#packages" class="nav-btn" style="text-decoration:none">견적 문의</a>
   </div>
 </nav>
 
@@ -236,41 +245,19 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
     <!-- 영상(좌) + 기능(우) -->
     <div style="display:grid;grid-template-columns:3fr 2fr;gap:16px;align-items:stretch" class="rv d1">
 
-      <!-- 왼쪽: 영상 슬라이더 -->
-      <div style="display:flex;flex-direction:column">
-        <div class="slider-wrap" style="flex:1">
-          <div class="slides" id="slides">
-            <div class="slide">
-              <div class="video-box">
-                <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover">
-                <source src="/cerberus_demo1.mp4" type="video/mp4">
-              </video>
-              </div>
-              
-            </div>
-            <div class="slide">
-              <div class="video-box">
-                <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover">
-                <source src="/cerberus_demo2.mp4" type="video/mp4">
-              </video>
-              </div>
-              
-            </div>
-            <div class="slide">
-              <div class="video-box">
-                <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID_3?enablejsapi=1&rel=0" allowfullscreen allow="autoplay"></iframe> -->
-                <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"><source src="/cerberus_demo3.mp4" type="video/mp4"></video>
-              </div>
-              
-            </div>
-            <div class="slide">
-              <div class="video-box">
-                <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"><source src="/cerberus_demo4.mp4" type="video/mp4"></video>
-              </div>
-            </div>
-          </div>
+      <!-- 왼쪽: 메인 영상 + 썸네일 -->
+      <div style="display:flex;flex-direction:column;gap:8px" id="video-panel">
+        <div class="video-box" id="main-video-box" style="border-radius:12px;overflow:hidden;flex:1">
+          <video id="main-video" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover">
+            <source src="/cerberus_demo1.mp4" type="video/mp4">
+          </video>
         </div>
-        <div class="slider-ctrl" style="margin-top:10px"><div class="dots" id="dots"></div></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px" id="thumb-row">
+          <button class="thumb-btn active" onclick="switchVideo(0)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo1.mp4#t=0.5" type="video/mp4"></video></button>
+          <button class="thumb-btn" onclick="switchVideo(1)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo2.mp4#t=0.5" type="video/mp4"></video></button>
+          <button class="thumb-btn" onclick="switchVideo(2)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo3.mp4#t=0.5" type="video/mp4"></video></button>
+          <button class="thumb-btn" onclick="switchVideo(3)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo4.mp4#t=0.5" type="video/mp4"></video></button>
+        </div>
       </div>
 
       <!-- 오른쪽: 기능 2x2 -->
@@ -454,381 +441,15 @@ const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
 const io = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add('on') }), {threshold:.1});
 document.querySelectorAll('.rv').forEach(el => io.observe(el));
-const slidesEl = document.getElementById('slides');
-const dotsWrap = document.getElementById('dots');
-const sliderWrap = slidesEl.closest('.slider-wrap');
-const total = slidesEl.children.length;
-let cur = 0;
-for(let i=0;i<total;i++){
-  const d=document.createElement('button');
-  d.className='dot'+(i===0?' active':'');
-  d.onclick=()=>goTo(i);
-  dotsWrap.appendChild(d);
-}
 
-function goTo(n){
-  document.querySelectorAll('.video-box iframe').forEach(f=>f.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*'));
-  cur=((n%total)+total)%total;
-  slidesEl.style.transform=`translateX(-${cur*100}%)`;
-  dotsWrap.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===cur));
-  const f=slidesEl.children[cur].querySelector('iframe');
-  if(f) setTimeout(()=>f.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}','*'),300);
-}
-
-
-// 드래그/스와이프
-let dragStart=0, dragging=false;
-sliderWrap.addEventListener('mousedown', e=>{ dragStart=e.clientX; dragging=true; sliderWrap.classList.add('dragging'); });
-window.addEventListener('mousemove', e=>{ if(!dragging) return; });
-window.addEventListener('mouseup', e=>{
-  if(!dragging) return;
-  dragging=false; sliderWrap.classList.remove('dragging');
-  const diff = dragStart - e.clientX;
-  if(Math.abs(diff)>50) goTo(diff>0?cur+1:cur-1);
-});
-sliderWrap.addEventListener('touchstart', e=>{ dragStart=e.touches[0].clientX; }, {passive:true});
-sliderWrap.addEventListener('touchend', e=>{
-  const diff = dragStart - e.changedTouches[0].clientX;
-  if(Math.abs(diff)>40){ goTo(diff>0?cur+1:cur-1); }
-});
-
-
-
-
-
-// ── 언어별 폼 URL ──
-const formUrls = {
-  ko: 'https://tally.so/r/A7jpZz',      // 한국어 폼
-  en: 'https://tally.so/r/A7jpZz',      // ★ 영어 폼 URL로 교체하세요
-  ja: 'https://tally.so/r/A7jpZz',      // ★ 일본어 폼 URL로 교체하세요
-};
-
-function getLangFormUrl() {
-  return formUrls[currentLang] || formUrls.ko;
-}
-
-// ── 다국어 번역 시스템 ──
-const translations = {
-  ko: {
-    nav_cta: '견적 문의',
-    nav_features: '주요 기능',
-    nav_price: '패키지',
-    nav_brochure: '소개자료',
-    hero_eyebrow: 'BEPRO AI 스포츠 카메라',
-    hero_h1: '촬영만으로는 부족합니다.<br><em>케르베로스는 <span style=\"color:var(--red)\">팀을 성장</span>시킵니다.</em>',
-    hero_msg: '<span style=\"color:var(--red);font-weight:600\">케르베로스는</span> <strong style=\"color:#fff;font-weight:600\">경기와 훈련 촬영부터 실시간 스트리밍 및 활용,<br>촬영된 영상을 편집하고 팀 구성원에 공유</strong>하는 것까지 모든 과정을 함께 합니다.',
-    hero_btn1: '구매 문의하기',
-    hero_btn2: '소개자료 다운로드',
-    sec2_tag: '주요 기능',
-    pkg_tag: '패키지 & 가격',
-    dl_tag: '소개자료',
-    dl_h: '더 자세히 알고<br>싶으신가요?',
-    dl_desc: '내부 공유를 위한 케르베로스 소개자료를 다운로드하세요.',
-    dl_btn_title: '케르베로스 소개자료 PDF',
-    dl_btn_sub: '클릭하여 다운로드',
-    contact_tag: '견적 문의',
-    contact_h: '견적서가 필요하신가요?',
-    contact_other: '기타 문의',
-    contact_btn: '견적 문의하기 →',
-    pkg1_num: '패키지 1', pkg2_num: '패키지 2', pkg3_num: '패키지 3',
-    pkg1_name: '카메라 + 구독료 + 사각대',
-    pkg2_name: '카메라 + 구독료',
-    pkg3_name: '사각대',
-    item_camera: 'CERBERUS 카메라', item_sub: '구독료 (1년)', item_quadpod: 'BEPRO 사각대',
-    total_label: '합계',
-    badge_rec: '추천', comp_label: '구성품 :',
-    inc_bag: '사각대 가방', inc_stabilizer: '스태빌라이저', vat_note: '※ 모든 가격 VAT 미포함',
-    feat1_key: '간편한 설치',
-    feat1_desc: '설치부터 촬영까지 단 5분. 간단한 절차로 카메라를 설치하고 촬영할 수 있습니다.',
-    feat2_key: '경기 & 훈련<br>자동 촬영',
-    feat2_desc: '카메라 조작 없이, 케르베로스가 사각지대 없이 경기장 내 모든 장면을 자동으로 촬영합니다.',
-    feat3_key: '실시간 스트리밍<br>& 라이브 코딩',
-    feat3_desc: '현장 밖에서는 스트리밍으로 실시간 시청이 가능하고, 벤치에서는 원하는 장면을 즉시 클립으로 만들어 하프타임에 바로 피드백할 수 있습니다.',
-    feat4_key: '영상 편집<br>& 공유',
-    feat4_desc: '비프로 에디터에서 카메라 뷰 조정과 그래픽 삽입으로 편집하고, 팀원들과 바로 공유할 수 있습니다.',
-  },
-  en: {
-    nav_cta: 'Inquiry',
-    nav_features: 'Key Features',
-    nav_price: 'Packages',
-    nav_brochure: 'Brochure',
-    hero_eyebrow: 'BEPRO AI Sports Camera',
-    hero_h1: "Don't just record the game.<br><em><span style=\"color:var(--red)\">Win it with CERBERUS.</span></em>",
-    hero_msg: '<strong style=\"color:#fff;font-weight:600\">Any camera records a game.<br>CERBERUS changes how your team plays it.</strong>',
-    hero_btn1: 'Contact Us',
-    hero_btn2: 'Download Brochure',
-    sec2_tag: 'Key Features',
-    sec2_h: 'Capture. Analyze. Share.',
-    pkg_tag: 'Packages & Pricing',
-    pkg_h: 'Choose the right package for your team',
-    dl_tag: 'Brochure',
-    dl_h: 'Want to know<br>more?',
-    dl_desc: 'Download the CERBERUS brochure for internal sharing.',
-    dl_btn_title: 'CERBERUS Brochure PDF',
-    dl_btn_sub: 'Click to download',
-    contact_tag: 'Inquiry',
-    contact_h: 'Need a quote?',
-    contact_other: 'Other Inquiries',
-    contact_btn: 'Send Inquiry →',
-    pkg1_num: 'Package 1', pkg2_num: 'Package 2', pkg3_num: 'Package 3',
-    pkg1_name: 'Camera + Subscription + Quadpod',
-    pkg2_name: 'Camera + Subscription',
-    pkg3_name: 'Quadpod',
-    item_camera: 'CERBERUS Camera', item_sub: 'Subscription (1 Year)', item_quadpod: 'BEPRO Quadpod',
-    total_label: 'Total',
-    inc_title_sub: 'Subscription Includes', inc_title_pkg3: 'Includes',
-    inc_editor: 'BEPRO Editor', inc_space: 'BEPRO Space',
-    inc_accounts: 'Unlimited Accounts', inc_support: 'Tech Support & Training',
-    inc_quadpod_body: 'BEPRO Quadpod Unit', inc_mount: 'CERBERUS Mount Compatible', inc_guide: 'Installation Guide Included',
-    badge_rec: 'Recommended', comp_label: 'Components :',
-    inc_bag: 'Quadpod Bag', inc_stabilizer: 'Stabilizer', vat_note: '※ All prices exclude VAT',
-    feat1_key: 'Quick Setup',
-    feat1_desc: 'From setup to recording in just 5 minutes. Install the camera and start filming with a simple process.',
-    feat2_key: 'Auto Recording<br>— Match & Training',
-    feat2_desc: 'No manual operation needed. CERBERUS automatically captures every moment on the pitch with zero blind spots.',
-    feat3_key: 'Live Streaming<br>& Live Coding',
-    feat3_desc: 'Stream live from outside the venue, or clip any moment instantly from the bench for halftime feedback.',
-    feat4_key: 'Video Editing<br>& Sharing',
-    feat4_desc: 'Edit with BEPRO Editor using camera view adjustments and graphic overlays, then share instantly with your team.',
-  },
-  ja: {
-    nav_cta: 'お問い合わせ',
-    nav_features: '主な機能',
-    nav_price: 'パッケージ',
-    nav_brochure: '資料',
-    hero_eyebrow: 'BEPRO AI スポーツカメラ',
-    hero_h1: '撮影だけでは足りません。<br><em>CERBERUSは<span style=\"color:var(--red)\">チームを成長</span>させます。</em>',
-    hero_msg: '<strong style=\"color:#fff;font-weight:600\">他のカメラは映像を残します。<br>CERBERUSはチームを成長させます。</strong>',
-    hero_btn1: 'お問い合わせ',
-    hero_btn2: '資料をダウンロード',
-    sec2_tag: '主な機能',
-    sec2_h: '撮影して、分析して、共有しましょう。',
-    pkg_tag: 'パッケージ・料金',
-    pkg_h: 'チームに合ったパッケージを選択',
-    dl_tag: '資料ダウンロード',
-    dl_h: 'もっと詳しく<br>知りたいですか？',
-    dl_desc: '社内共有用のCERBERUS紹介資料をダウンロードしてください。',
-    dl_btn_title: 'CERBERUS紹介資料 PDF',
-    dl_btn_sub: 'クリックしてダウンロード',
-    contact_tag: 'お見積もり',
-    contact_h: '見積書が必要ですか？',
-    contact_other: 'その他のお問い合わせ',
-    contact_btn: 'お問い合わせ →',
-    pkg1_num: 'パッケージ 1', pkg2_num: 'パッケージ 2', pkg3_num: 'パッケージ 3',
-    pkg1_name: 'カメラ＋サブスクリプション＋三脚',
-    pkg2_name: 'カメラ＋サブスクリプション',
-    pkg3_name: '三脚',
-    item_camera: 'CERBERUSカメラ', item_sub: 'サブスクリプション (1年)', item_quadpod: 'BEPRO 三脚',
-    total_label: '合計',
-    inc_title_sub: 'サブスク含む内容', inc_title_pkg3: '含む内容',
-    inc_editor: 'BEPRO Editor', inc_space: 'BEPRO Space',
-    inc_accounts: 'アカウント数無制限', inc_support: '技術サポート・トレーニング',
-    inc_quadpod_body: 'BEPRO 三脚本体', inc_mount: 'CERBERUSマウント対応', inc_guide: '設置ガイド付き',
-    badge_rec: 'おすすめ', comp_label: '構成品 :',
-    inc_bag: '三脚バッグ', inc_stabilizer: 'スタビライザー', vat_note: '※ 全価格は税別（VAT除く）',
-    feat1_key: '簡単セットアップ',
-    feat1_desc: 'セットアップから撮影まで5分。簡単な手順でカメラを設置して撮影できます。',
-    feat2_key: '試合＆練習<br>自動撮影',
-    feat2_desc: 'カメラ操作不要。CERBERUSがフィールド内のすべてのシーンを死角なく自動で撮影します。',
-    feat3_key: 'ライブ配信<br>＆ライブコーディング',
-    feat3_desc: '会場外からはライブ配信でリアルタイム視聴が可能。ベンチでは任意のシーンをすぐクリップ化してハーフタイムにフィードバックできます。',
-    feat4_key: '映像編集<br>＆共有',
-    feat4_desc: 'BEPROエディターでカメラビューの調整とグラフィック挿入で編集し、チームメンバーとすぐに共有できます。',
-  }
-};
-
-let currentLang = 'ko';
-
-function setLang(lang) {
-  currentLang = lang;
-  const t = translations[lang];
-
-  // 버튼 스타일 업데이트
-  ['ko','en','ja'].forEach(l => {
-    const btn = document.getElementById('lang-'+l);
-    if (!btn) return;
-    if (l === lang) {
-      btn.style.background = 'var(--red)';
-      btn.style.color = '#fff';
-    } else {
-      btn.style.background = 'transparent';
-      btn.style.color = 'rgba(255,255,255,.6)';
-    }
-  });
-
-  // data-i18n 요소들 업데이트
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (t[key] !== undefined) el.innerHTML = t[key];
-  });
-
-  // 별도 처리: hero 버튼, sec2 h2, pkg h2, contact h3, dl h3
-  const heroBtn1 = document.querySelector('.hero-content .btn-r');
-  const heroBtn2 = document.getElementById('heroDownload');
-  if (heroBtn1) heroBtn1.innerHTML = t.hero_btn1;
-  if (heroBtn2) {
-    heroBtn2.innerHTML = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>${t.hero_btn2}`;
-  }
-
-  // sec2 h2
-  const sec2H = document.querySelector('#sec2 .sec-h');
-  if (sec2H) sec2H.innerHTML = t.sec2_h;
-
-  // pkg h2
-  const pkgH = document.querySelector('#packages h2');
-  if (pkgH) pkgH.innerHTML = t.pkg_h;
-
-  // dl section
-  const dlH = document.querySelector('#download h3');
-  const dlDesc = document.querySelector('#download p');
-  const dlBtnTitle = document.querySelector('.dl-btn .dl-btn-title, #downloadBtn span:first-child');
-  const dlBtnSub   = document.querySelector('#downloadBtn span:last-child');
-  if (dlH) dlH.innerHTML = t.dl_h;
-  if (dlDesc) dlDesc.textContent = t.dl_desc;
-
-  // contact section
-  const contactH = document.querySelectorAll('#download h3');
-  if (contactH[1]) contactH[1].innerHTML = t.contact_h;
-  const contactBtn = document.querySelector('#download .btn-r');
-  if (contactBtn) contactBtn.innerHTML = t.contact_btn;
-
-
-  // 가격 업데이트
-  const prices = {
-    ko: {
-      camera_w: '3,000,000원', camera_b: '3,000,000원',
-      sub_w: '1,000,000원', sub_b: '1,000,000원',
-      quad_w: '500,000원', quad_b: '500,000원',
-      total1: '4,000,000원', total2: '4,500,000원', total3: '500,000원',
-    },
-    en: {
-      camera_w: '2,000 USD', camera_b: '2,000 USD',
-      sub_w: '1,000 USD', sub_b: '1,000 USD',
-      quad_w: '500 USD', quad_b: '500 USD',
-      total1: '3,000 USD', total2: '3,500 USD', total3: '500 USD',
-    },
-    ja: {
-      camera_w: '3,000,000원', camera_b: '3,000,000원',
-      sub_w: '1,000,000원', sub_b: '1,000,000원',
-      quad_w: '500,000원', quad_b: '500,000원',
-      total1: '4,000,000원', total2: '4,500,000원', total3: '500,000원',
-    },
-  };
-  const p = prices[lang] || prices.ko;
-
-  // 툴팁 언어 업데이트
-  const tooltipData = {
-    ko: {
-      'tt-cam1': {title:'카메라 구성품', items:['카메라 가방','카메라 마운트','변환 나사','충전기']},
-      'tt-cam2': {title:'카메라 구성품', items:['카메라 가방','카메라 마운트','변환 나사','충전기']},
-      'tt-tri1': {title:'사각대 구성품', items:['BEPRO 사각대','사각대 가방','스태빌라이저']},
-      'tt-tri3': {title:'사각대 구성품', items:['BEPRO 사각대','사각대 가방','스태빌라이저']},
-      'tt-sub1': {title:'구독료 포함', items:['BEPRO Editor','BEPRO Space','계정 수 무제한','기술 지원 및 교육']},
-      'tt-sub2': {title:'구독료 포함', items:['BEPRO Editor','BEPRO Space','계정 수 무제한','기술 지원 및 교육']},
-    },
-    en: {
-      'tt-cam1': {title:'Camera Kit', items:['Camera Bag','Camera Mount','Adapter Screw','Charger']},
-      'tt-cam2': {title:'Camera Kit', items:['Camera Bag','Camera Mount','Adapter Screw','Charger']},
-      'tt-tri1': {title:'Quadpod Kit', items:['Quadpod','Quadpod Bag','Stabilizer']},
-      'tt-tri3': {title:'Quadpod Kit', items:['Quadpod','Quadpod Bag','Stabilizer']},
-      'tt-sub1': {title:'Subscription Includes', items:['BEPRO Editor','BEPRO Space','Unlimited Accounts','Tech Support & Training']},
-      'tt-sub2': {title:'Subscription Includes', items:['BEPRO Editor','BEPRO Space','Unlimited Accounts','Tech Support & Training']},
-    },
-    ja: {
-      'tt-cam1': {title:'カメラキット', items:['カメラバッグ','カメラマウント','変換ネジ','充電器']},
-      'tt-cam2': {title:'カメラキット', items:['カメラバッグ','カメラマウント','変換ネジ','充電器']},
-      'tt-tri1': {title:'三脚キット', items:['三脚本体','三脚バッグ','スタビライザー']},
-      'tt-tri3': {title:'三脚キット', items:['三脚本体','三脚バッグ','スタビライザー']},
-      'tt-sub1': {title:'サブスク内容', items:['BEPRO Editor','BEPRO Space','アカウント数無制限','技術サポート']},
-      'tt-sub2': {title:'サブスク内容', items:['BEPRO Editor','BEPRO Space','アカウント数無制限','技術サポート']},
-    }
-  };
-  const td = tooltipData[lang] || tooltipData.ko;
-  Object.keys(td).forEach(id => {
-    const box = document.getElementById(id);
-    if (!box) return;
-    const d = td[id];
-    box.innerHTML = '<span class="tooltip-title">' + d.title + '</span>' +
-      d.items.map(i => '<div class="tooltip-item">' + i + '</div>').join('');
-  });
-  document.querySelectorAll('[data-price]').forEach(el => {
-    const key = el.getAttribute('data-price');
-    if (p[key]) el.textContent = p[key];
-  });
-
-
-  // 언어별 헤드라인 폰트/스타일 조절
-  const heroH1 = document.getElementById('hero-h1');
-  const heroContent = document.getElementById('hero-content');
-  if (heroH1) {
-    const heroEm = heroH1.querySelector('em');
-    heroH1.style.fontSize = '';
-    if (heroEm) heroEm.style.display = '';
-    if (heroContent) heroContent.style.maxWidth = '';
-  }
-
-  // 기능 설명 번역
-  const featDescs = document.querySelectorAll('.feat-desc');
-  const featKeys  = document.querySelectorAll('.feat-key');
-  const featTexts = {
-    ko: [
-      ['간편한 설치', '설치부터 촬영까지 단 5분. 간단한 절차로 카메라를 설치하고 촬영할 수 있습니다.'],
-      ['경기 & 훈련<br>자동 촬영', '카메라 조작 없이, 케르베로스가 사각지대 없이 경기장 내 모든 장면을 자동으로 촬영합니다.'],
-      ['실시간 스트리밍<br>& 라이브 코딩', '현장 밖에서는 스트리밍으로 실시간 시청이 가능하고, 벤치에서는 원하는 장면을 즉시 클립으로 만들어 하프타임에 바로 피드백할 수 있습니다.'],
-      ['영상 편집<br>& 공유', '비프로 에디터에서 카메라 뷰 조정과 그래픽 삽입으로 편집하고, 팀원들과 바로 공유할 수 있습니다.'],
-    ],
-    en: [
-      ['Easy Setup', 'From setup to recording in just 5 minutes. Spend that saved time on training and warm-ups instead.'],
-      ['Auto Recording<br>for Games & Training', 'No camera operation needed. CERBERUS automatically captures every moment on the field — no blind spots.'],
-      ['Live Streaming<br>& Live Coding', "Stream live for those not on-site, while on-site staff can instantly clip key moments and share feedback at halftime."],
-      ['Video Editing<br>& Sharing', 'Edit footage in BEPRO Editor with camera angle control and graphic overlays, then share instantly with your team.'],
-    ],
-    ja: [
-      ['簡単設置', 'セットアップから撮影開始まで5分。時間を節約してチームのトレーニングとウォームアップに集中できます。'],
-      ['試合・練習の<br>自動撮影', 'カメラ操作不要。ケルベロスがフィールド内のすべての場面を死角なく自動で撮影します。'],
-      ['ライブ配信<br>& ライブコーディング', '現場外でもライブ配信でリアルタイム観戦が可能。現場ではシーンを即クリップ化し、ハーフタイムにすぐフィードバックできます。'],
-      ['映像編集<br>& 共有', 'BEPROエディターでカメラアングルの調整やグラフィック挿入で編集し、チームメンバーとすぐ共有できます。'],
-    ],
-  };
-  const texts = featTexts[lang];
-  if (texts) {
-    featKeys.forEach((el, i) => { if(texts[i]) el.innerHTML = texts[i][0]; });
-    featDescs.forEach((el, i) => { if(texts[i]) el.textContent = texts[i][1]; });
-  }
-
-  // dl btn texts
-  const dlSpans = document.querySelectorAll('#downloadBtn span');
-  if (dlSpans[0]) dlSpans[0].textContent = t.dl_btn_title;
-  if (dlSpans[1]) dlSpans[1].textContent = t.dl_btn_sub;
-}
-
-
-function openTallyPopup() {
-  const url = getLangFormUrl();
-  const formId = url.split('/r/')[1];
-  if (window.Tally) {
-    Tally.openPopup(formId, { width: 420, emoji: { text: '👋', animation: 'wave' } });
-  } else {
-    // Tally 아직 로드 안됨 - 500ms 후 재시도
-    setTimeout(openTallyPopup, 500);
-  }
-}
-
-function openTallyForm() { openTallyPopup(); }
-
-// 패키지 섹션 진입 시 Tally 자동 오픈
-let tallyAutoOpened = false;
-const pkgCards = document.getElementById('pkg-cards');
-if (pkgCards && window.innerWidth >= 768) {
-  const pkgObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting && !tallyAutoOpened) {
-        tallyAutoOpened = true;
-        setTimeout(() => openTallyPopup(), 600);
-      }
-    });
-  }, { threshold: 0.2 });
-  pkgObs.observe(pkgCards);
+// 비디오 썸네일 전환
+const videoSrcs = ['/cerberus_demo1.mp4','/cerberus_demo2.mp4','/cerberus_demo3.mp4','/cerberus_demo4.mp4'];
+function switchVideo(idx) {
+  const mv = document.getElementById('main-video');
+  if (!mv) return;
+  mv.src = videoSrcs[idx];
+  mv.play();
+  document.querySelectorAll('.thumb-btn').forEach((b,i) => b.classList.toggle('active', i===idx));
 }
 </script>
 
