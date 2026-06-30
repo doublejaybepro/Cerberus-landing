@@ -10,7 +10,7 @@ const translations = {
     nav_cta: '견적 문의', nav_features: '주요 기능', nav_price: '패키지', nav_brochure: '소개자료',
     hero_eyebrow: 'BEPRO AI 스포츠 카메라',
     hero_h1: '촬영만으로는 부족합니다.<br><em>케르베로스는 <span style="color:var(--red)">팀을 성장</span>시킵니다.</em>',
-    hero_msg: '<span style="color:var(--red);font-weight:600">케르베로스는</span> <strong style="color:#fff;font-weight:600">경기와 훈련 촬영부터 실시간 스트리밍 및 활용,<br>촬영된 영상을 편집하고 팀 구성원에 공유</strong>하는 것까지 모든 과정을 함께 합니다.',
+    hero_msg: '<span style="color:var(--red);font-weight:600">케르베로스는</span> <strong style="color:#fff;font-weight:600">경기와 훈련 촬영부터 실시간 스트리밍 및 활용, 촬영된 영상을 편집하고 팀 구성원에 공유하는 것까지 모든 과정을 함께 합니다.</strong>',
     hero_btn1: '구매 문의하기', hero_btn2: '소개자료 다운로드',
     sec2_tag: '주요 기능', pkg_tag: '패키지 & 가격',
     dl_tag: '소개자료', dl_h: '더 자세히 알고<br>싶으신가요?',
@@ -30,12 +30,13 @@ const translations = {
     feat3_desc: '현장 밖에서는 스트리밍으로 실시간 시청이 가능하고, 벤치에서는 원하는 장면을 즉시 클립으로 만들어 하프타임에 바로 피드백할 수 있습니다.',
     feat4_key: '영상 편집<br>& 공유',
     feat4_desc: '비프로 에디터에서 카메라 뷰 조정과 그래픽 삽입으로 편집하고, 팀원들과 바로 공유할 수 있습니다.',
+    thumb1: '경기', thumb2: '훈련', thumb3: 'U12', thumb4: '농구', thumb5: '골뒷캠',
   },
   en: {
     nav_cta: 'Inquiry', nav_features: 'Key Features', nav_price: 'Packages', nav_brochure: 'Brochure',
     hero_eyebrow: 'BEPRO AI Sports Camera',
     hero_h1: "Don't just record the game.<br><em><span style=\"color:var(--red)\">Win it with CERBERUS.</span></em>",
-    hero_msg: '<strong style="color:#fff;font-weight:600">Any camera records a game.<br>CERBERUS changes how your team plays it.</strong>',
+    hero_msg: '<strong style="color:#fff;font-weight:600">Any camera records a game.<br><span style="color:var(--red)">CERBERUS</span> changes how your team plays it.</strong>',
     hero_btn1: 'Contact Us', hero_btn2: 'Download Brochure',
     sec2_tag: 'Key Features', pkg_tag: 'Packages & Pricing',
     dl_tag: 'Brochure', dl_h: 'Want to know<br>more?',
@@ -55,6 +56,7 @@ const translations = {
     feat3_desc: 'Stream live from outside the venue, or clip any moment instantly from the bench for halftime feedback.',
     feat4_key: 'Video Editing<br>& Sharing',
     feat4_desc: 'Edit with BEPRO Editor using camera view adjustments and graphic overlays, then share instantly with your team.',
+    thumb1: 'Match', thumb2: 'Training', thumb3: 'U12', thumb4: 'Basketball', thumb5: 'Goal Cam',
   },
   ja: {
     nav_cta: 'お問い合わせ', nav_features: '主な機能', nav_price: 'パッケージ', nav_brochure: '資料',
@@ -80,6 +82,7 @@ const translations = {
     feat3_desc: '会場外からはライブ配信でリアルタイム視聴が可能。ベンチでは任意のシーンをすぐクリップ化してハーフタイムにフィードバックできます。',
     feat4_key: '映像編集<br>＆共有',
     feat4_desc: 'BEPROエディターでカメラビューの調整とグラフィック挿入で編集し、チームメンバーとすぐに共有できます。',
+    thumb1: '試合', thumb2: '練習', thumb3: 'U12', thumb4: 'バスケ', thumb5: 'ゴール裏',
   }
 };
 
@@ -110,6 +113,10 @@ function setLang(lang) {
   });
 
   document.documentElement.lang = lang === 'ja' ? 'ja' : (lang === 'en' ? 'en' : 'ko');
+
+  // EN 전용 가격 안내 문구
+  const priceNote = document.getElementById('en-price-note');
+  if (priceNote) priceNote.style.display = (lang === 'en') ? 'block' : 'none';
 
   // 툴팁 언어 업데이트
   const tooltipData = {
@@ -145,6 +152,33 @@ function setLang(lang) {
     const d = td[id];
     box.innerHTML = '<span class="tooltip-title">' + d.title + '</span>' +
       d.items.map(i => '<div class="tooltip-item">' + i + '</div>').join('');
+  });
+
+  // 언어별 가격 전환
+  const priceData = {
+    ko: {
+      camera_b:'3,300,000원', camera_w:'3,300,000원',
+      sub_b:'1,100,000원', sub_w:'1,100,000원',
+      quad_b:'550,000원', quad_w:'550,000원',
+      total1:'4,400,000원', total2:'4,950,000원', total3:'550,000원'
+    },
+    en: {
+      camera_b:'2,000 USD', camera_w:'2,000 USD',
+      sub_b:'1,000 USD', sub_w:'1,000 USD',
+      quad_b:'500 USD', quad_w:'500 USD',
+      total1:'3,000 USD', total2:'3,500 USD', total3:'500 USD'
+    },
+    ja: {
+      camera_b:'3,300,000円', camera_w:'3,300,000円',
+      sub_b:'1,100,000円', sub_w:'1,100,000円',
+      quad_b:'550,000円', quad_w:'550,000円',
+      total1:'4,400,000円', total2:'4,950,000円', total3:'550,000円'
+    }
+  };
+  const pd = priceData[lang] || priceData.ko;
+  document.querySelectorAll('[data-price]').forEach(el => {
+    const key = el.getAttribute('data-price');
+    if (pd[key] !== undefined) el.textContent = pd[key];
   });
 }
 
@@ -207,7 +241,7 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
 .hero-h{font-size:clamp(28px,4vw,54px);font-weight:700;letter-spacing:-.04em;line-height:1.1;color:#f5f5f7;word-break:keep-all;margin-bottom:20px}
 .hero-h em{color:var(--red);font-style:normal;display:block}
 .hero-msg{font-size:clamp(17px,1.8vw,21px);font-weight:300;color:#ccc;line-height:1.75;word-break:keep-all;max-width:820px;margin-bottom:36px}
-.hero-msg strong{color:var(--red);font-weight:600}
+.hero-msg strong{color:#fff;font-weight:600}
 .btn-r{background:var(--red);color:#fff;border:none;border-radius:40px;font-size:15px;font-weight:600;padding:13px 28px;cursor:pointer;text-decoration:none;display:inline-block;font-family:var(--font)}
 .btn-r:hover{opacity:.87}
 .btn-dl{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:#f5f5f7;text-decoration:none;border:1px solid rgba(255,255,255,.2);border-radius:40px;padding:12px 22px;transition:border-color .2s;background:transparent}
@@ -335,7 +369,7 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
 .thumb-btn{padding:0;border:2px solid rgba(255,255,255,.15);border-radius:8px;overflow:hidden;cursor:pointer;background:#111;aspect-ratio:16/9;transition:border-color .2s;width:100%;position:relative}
 .thumb-btn:hover{border-color:rgba(255,255,255,.5)}
 .thumb-btn.active{border-color:var(--red)}
-.thumb-label{position:absolute;bottom:0;left:0;right:0;padding:4px 6px;font-size:10px;font-weight:700;color:#fff;letter-spacing:.04em;text-align:center;background:linear-gradient(transparent,rgba(0,0,0,.7));pointer-events:none}
+.thumb-label{position:absolute;bottom:0;left:0;right:0;padding:4px 3px;font-size:clamp(8px,2vw,10px);font-weight:700;color:#fff;letter-spacing:.02em;text-align:center;background:linear-gradient(transparent,rgba(0,0,0,.7));pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .thumb-btn.active .thumb-label{color:var(--red)}
 
 
@@ -363,7 +397,7 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
       <button onclick="setLang('en')" id="lang-en" style="font-size:12px;font-weight:600;color:rgba(255,255,255,.6);background:transparent;border:none;border-radius:16px;padding:4px 10px;cursor:pointer;font-family:var(--font);transition:background .15s">EN</button>
       <button onclick="setLang('ja')" id="lang-ja" style="font-size:12px;font-weight:600;color:rgba(255,255,255,.6);background:transparent;border:none;border-radius:16px;padding:4px 10px;cursor:pointer;font-family:var(--font);transition:background .15s">JP</button>
     </div>
-    <a href="#packages" class="nav-btn" style="text-decoration:none">견적 문의</a>
+    <a href="#packages" class="nav-btn" style="text-decoration:none" data-i18n="nav_cta">견적 문의</a>
   </div>
 </nav>
 
@@ -378,7 +412,7 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
   <div class="hero-content" id="hero-content">
     <span class="hero-eyebrow" data-i18n="hero_eyebrow">BEPRO AI 스포츠 카메라</span>
     <h1 class="hero-h" id="hero-h1" data-i18n="hero_h1">촬영만으로는 부족합니다.<br><em>케르베로스는 <span style="color:var(--red)">팀을 성장</span>시킵니다.</em></h1>
-    <p class="hero-msg" data-i18n="hero_msg"><span style="color:var(--red);font-weight:600">케르베로스는</span> <strong style="color:#fff;font-weight:600">경기와 훈련 촬영부터 실시간 스트리밍 및 활용,<br>촬영된 영상을 편집하고 팀 구성원에 공유</strong>하는 것까지 모든 과정을 함께 합니다.</p>
+    <p class="hero-msg" data-i18n="hero_msg"><span style="color:var(--red);font-weight:600">케르베로스는</span> <strong style="color:#fff;font-weight:600">경기와 훈련 촬영부터 실시간 스트리밍 및 활용,<br>촬영된 영상을 편집하고 팀 구성원에 공유하는 것까지 모든 과정을 함께 합니다.</strong></p>
     <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
     </div>
   </div>
@@ -401,11 +435,11 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
           </video>
         </div>
         <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px" id="thumb-row">
-          <button class="thumb-btn active" onclick="switchVideo(0)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo1.mp4#t=0.5" type="video/mp4"></video><div style="position:absolute;inset:0;background:rgba(0,0,0,.45);pointer-events:none;transition:opacity .2s" class="thumb-dim"></div><span class="thumb-label">경기</span></button>
-          <button class="thumb-btn" onclick="switchVideo(1)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo2.mp4#t=0.5" type="video/mp4"></video><div style="position:absolute;inset:0;background:rgba(0,0,0,.45);pointer-events:none;transition:opacity .2s" class="thumb-dim"></div><span class="thumb-label">훈련</span></button>
-          <button class="thumb-btn" onclick="switchVideo(2)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo3.mp4#t=0.5" type="video/mp4"></video><div style="position:absolute;inset:0;background:rgba(0,0,0,.45);pointer-events:none;transition:opacity .2s" class="thumb-dim"></div><span class="thumb-label">유소년</span></button>
-          <button class="thumb-btn" onclick="switchVideo(3)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo4.mp4#t=0.5" type="video/mp4"></video><div style="position:absolute;inset:0;background:rgba(0,0,0,.45);pointer-events:none;transition:opacity .2s" class="thumb-dim"></div><span class="thumb-label">농구</span></button>
-          <button class="thumb-btn" onclick="switchVideo(4)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo5.mp4#t=0.5" type="video/mp4"></video><div style="position:absolute;inset:0;background:rgba(0,0,0,.45);pointer-events:none;transition:opacity .2s" class="thumb-dim"></div><span class="thumb-label">골뒷캠</span></button>
+          <button class="thumb-btn active" onclick="switchVideo(0)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo1.mp4#t=0.5" type="video/mp4"></video><div style="position:absolute;inset:0;background:rgba(0,0,0,.45);pointer-events:none;transition:opacity .2s" class="thumb-dim"></div><span class="thumb-label" data-i18n="thumb1">경기</span></button>
+          <button class="thumb-btn" onclick="switchVideo(1)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo2.mp4#t=0.5" type="video/mp4"></video><div style="position:absolute;inset:0;background:rgba(0,0,0,.45);pointer-events:none;transition:opacity .2s" class="thumb-dim"></div><span class="thumb-label" data-i18n="thumb2">훈련</span></button>
+          <button class="thumb-btn" onclick="switchVideo(2)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo3.mp4#t=0.5" type="video/mp4"></video><div style="position:absolute;inset:0;background:rgba(0,0,0,.45);pointer-events:none;transition:opacity .2s" class="thumb-dim"></div><span class="thumb-label" data-i18n="thumb3">U12</span></button>
+          <button class="thumb-btn" onclick="switchVideo(3)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo4.mp4#t=0.5" type="video/mp4"></video><div style="position:absolute;inset:0;background:rgba(0,0,0,.45);pointer-events:none;transition:opacity .2s" class="thumb-dim"></div><span class="thumb-label" data-i18n="thumb4">농구</span></button>
+          <button class="thumb-btn" onclick="switchVideo(4)"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block"><source src="/cerberus_demo5.mp4#t=0.5" type="video/mp4"></video><div style="position:absolute;inset:0;background:rgba(0,0,0,.45);pointer-events:none;transition:opacity .2s" class="thumb-dim"></div><span class="thumb-label" data-i18n="thumb5">골뒷캠</span></button>
         </div>
       </div>
 
@@ -542,6 +576,9 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
 
       </div>
     </div>
+
+    <p id="en-price-note" style="display:none;font-size:11px;color:var(--g3);line-height:1.6;text-align:left;margin-top:16px">* Subscription fee is charged on an annual basis, while all other items are one-off payments.<br>* Prices listed do not include VAT, import tax, or any other taxes applicable to shipment to the destination country.</p>
+
   </div>
 </section>
 
@@ -565,7 +602,7 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
     <div style="padding:52px 44px;background:#1a1a1a">
       <span style="font-size:11px;font-weight:600;color:var(--red);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:14px" data-i18n="contact_tag">견적 문의</span>
       <h3 style="font-size:clamp(22px,2.5vw,32px);font-weight:700;letter-spacing:-.03em;line-height:1.15;color:#f5f5f7;margin-bottom:24px;word-break:keep-all">견적서가 필요하신가요?</h3>
-      <a href="https://tally.so/r/A7jpZz" target="_blank" class="btn-r" style="font-size:14px;padding:12px 24px;display:inline-block;margin-bottom:28px">견적 문의하기 →</a>
+      <a href="https://tally.so/r/A7jpZz" target="_blank" class="btn-r" style="font-size:14px;padding:12px 24px;display:inline-block;margin-bottom:28px" data-i18n="contact_btn">견적 문의하기 →</a>
       <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:18px">
         <p style="font-size:11px;font-weight:600;color:#555;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">기타 문의</p>
         <div style="display:flex;align-items:center;gap:10px">
