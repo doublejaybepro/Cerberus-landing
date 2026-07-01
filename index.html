@@ -118,12 +118,14 @@ function setLang(lang) {
   // 언어별 견적 문의 링크
   const contactBtn = document.getElementById('contactBtn');
   if (contactBtn && t.contact_url) contactBtn.href = t.contact_url;
+  const navContactBtn = document.getElementById('navContactBtn');
+  if (navContactBtn && t.contact_url) navContactBtn.href = t.contact_url;
 
   document.documentElement.lang = lang === 'ja' ? 'ja' : (lang === 'en' ? 'en' : 'ko');
 
-  // EN 전용 가격 안내 문구
+  // EN 전용 가격 안내 문구 (공간은 항상 유지, 텍스트만 EN에서 표시)
   const priceNote = document.getElementById('en-price-note');
-  if (priceNote) priceNote.style.display = (lang === 'en') ? 'block' : 'none';
+  if (priceNote) priceNote.style.visibility = (lang === 'en') ? 'visible' : 'hidden';
 
   // 툴팁 언어 업데이트
   const tooltipData = {
@@ -404,7 +406,7 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
       <button onclick="setLang('en')" id="lang-en" style="font-size:12px;font-weight:600;color:rgba(255,255,255,.6);background:transparent;border:none;border-radius:16px;padding:4px 10px;cursor:pointer;font-family:var(--font);transition:background .15s">EN</button>
       <button onclick="setLang('ja')" id="lang-ja" style="font-size:12px;font-weight:600;color:rgba(255,255,255,.6);background:transparent;border:none;border-radius:16px;padding:4px 10px;cursor:pointer;font-family:var(--font);transition:background .15s">JP</button>
     </div>
-    <a href="#packages" class="nav-btn" style="text-decoration:none" data-i18n="nav_cta">견적 문의</a>
+    <a href="https://tally.so/r/A7jpZz" target="_blank" class="nav-btn" id="navContactBtn" style="text-decoration:none" data-i18n="nav_cta">견적 문의</a>
   </div>
 </nav>
 
@@ -584,7 +586,7 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
       </div>
     </div>
 
-    <p id="en-price-note" style="display:none;font-size:11px;color:var(--g3);line-height:1.6;text-align:left;margin-top:16px">* Subscription fee is charged on an annual basis, while all other items are one-off payments.<br>* Prices listed do not include VAT, import tax, or any other taxes applicable to shipment to the destination country.</p>
+    <p id="en-price-note" style="visibility:hidden;font-size:11px;color:var(--g3);line-height:1.6;text-align:left;margin-top:16px">* Subscription fee is charged on an annual basis, while all other items are one-off payments.<br>* Prices listed do not include VAT, import tax, or any other taxes applicable to shipment to the destination country.</p>
 
   </div>
 </section>
