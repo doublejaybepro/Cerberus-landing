@@ -17,6 +17,7 @@ const translations = {
     dl_desc: '내부 공유를 위한 케르베로스 소개자료를 다운로드하세요.',
     dl_btn_title: '케르베로스 소개자료 PDF', dl_btn_sub: '클릭하여 다운로드',
     contact_tag: '견적 문의', contact_h: '견적서가 필요하신가요?',
+    contact_url: 'https://tally.so/r/A7jpZz',
     contact_other: '기타 문의', contact_btn: '견적 문의하기 →',
     pkg1_num: '패키지 1', pkg2_num: '패키지 2', pkg3_num: '패키지 3',
     pkg1_name: '카메라 + 구독료 + 사각대', pkg2_name: '카메라 + 구독료', pkg3_name: '사각대',
@@ -43,6 +44,7 @@ const translations = {
     dl_desc: 'Download the CERBERUS brochure for internal sharing.',
     dl_btn_title: 'CERBERUS Brochure PDF', dl_btn_sub: 'Click to download',
     contact_tag: 'Inquiry', contact_h: 'Take the next step.',
+    contact_url: 'https://tally.so/r/2EZ7yM',
     contact_other: 'Other Inquiries', contact_btn: 'Send Inquiry →',
     pkg1_num: 'Package 1', pkg2_num: 'Package 2', pkg3_num: 'Package 3',
     pkg1_name: 'Camera + Subscription + Quadpod', pkg2_name: 'Camera + Subscription', pkg3_name: 'Quadpod',
@@ -69,6 +71,7 @@ const translations = {
     dl_desc: '社内共有用のCERBERUS紹介資料をダウンロードしてください。',
     dl_btn_title: 'CERBERUS紹介資料 PDF', dl_btn_sub: 'クリックしてダウンロード',
     contact_tag: 'お見積もり', contact_h: '見積書が必要ですか？',
+    contact_url: 'https://tally.so/r/A7jpZz',
     contact_other: 'その他のお問い合わせ', contact_btn: 'お問い合わせ →',
     pkg1_num: 'パッケージ 1', pkg2_num: 'パッケージ 2', pkg3_num: 'パッケージ 3',
     pkg1_name: 'カメラ＋サブスクリプション＋三脚', pkg2_name: 'カメラ＋サブスクリプション', pkg3_name: '三脚',
@@ -111,6 +114,10 @@ function setLang(lang) {
       el.innerHTML = t[key];
     }
   });
+
+  // 언어별 견적 문의 링크
+  const contactBtn = document.getElementById('contactBtn');
+  if (contactBtn && t.contact_url) contactBtn.href = t.contact_url;
 
   document.documentElement.lang = lang === 'ja' ? 'ja' : (lang === 'en' ? 'en' : 'ko');
 
@@ -602,7 +609,7 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
     <div style="padding:52px 44px;background:#1a1a1a">
       <span style="font-size:11px;font-weight:600;color:var(--red);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:14px" data-i18n="contact_tag">견적 문의</span>
       <h3 style="font-size:clamp(22px,2.5vw,32px);font-weight:700;letter-spacing:-.03em;line-height:1.15;color:#f5f5f7;margin-bottom:24px;word-break:keep-all" data-i18n="contact_h">견적서가 필요하신가요?</h3>
-      <a href="https://tally.so/r/A7jpZz" target="_blank" class="btn-r" style="font-size:14px;padding:12px 24px;display:inline-block;margin-bottom:28px" data-i18n="contact_btn">견적 문의하기 →</a>
+      <a href="https://tally.so/r/A7jpZz" target="_blank" class="btn-r" id="contactBtn" style="font-size:14px;padding:12px 24px;display:inline-block;margin-bottom:28px" data-i18n="contact_btn">견적 문의하기 →</a>
       <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:18px">
         <p style="font-size:11px;font-weight:600;color:#555;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px" data-i18n="contact_other">기타 문의</p>
         <div style="display:flex;align-items:center;gap:10px">
