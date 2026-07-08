@@ -16,6 +16,8 @@ const translations = {
     dl_tag: '소개자료', dl_h: '더 자세히 알고<br>싶으신가요?',
     dl_desc: '내부 공유를 위한 케르베로스 소개자료를 다운로드하세요.',
     dl_btn_title: '케르베로스 소개자료 PDF', dl_btn_sub: '클릭하여 다운로드',
+    quadpod_pdf_url: '/BEPRO_Quadpod_KR.pdf',
+    dl2_btn_title: '사각대 소개자료 PDF', dl2_btn_sub: '클릭하여 다운로드',
     contact_tag: '견적 문의', contact_h: '견적서가 필요하신가요?',
     contact_url: 'https://tally.so/r/A7jpZz',
     contact_other: '기타 문의', contact_btn: '견적 문의하기 →',
@@ -43,6 +45,8 @@ const translations = {
     dl_tag: 'Brochure', dl_h: 'Explore CERBERUS<br>in detail.',
     dl_desc: 'Download the CERBERUS brochure for internal sharing.',
     dl_btn_title: 'CERBERUS Brochure PDF', dl_btn_sub: 'Click to download',
+    quadpod_pdf_url: '/BEPRO_Quadpod_EN.pdf',
+    dl2_btn_title: 'Quadpod Brochure PDF', dl2_btn_sub: 'Click to download',
     contact_tag: 'Inquiry', contact_h: 'Take the next step.',
     contact_url: 'https://tally.so/r/2EZ7yM',
     contact_other: 'Other Inquiries', contact_btn: 'Send Inquiry →',
@@ -70,6 +74,8 @@ const translations = {
     dl_tag: '資料ダウンロード', dl_h: 'もっと詳しく<br>知りたいですか？',
     dl_desc: '社内共有用のCERBERUS紹介資料をダウンロードしてください。',
     dl_btn_title: 'CERBERUS紹介資料 PDF', dl_btn_sub: 'クリックしてダウンロード',
+    quadpod_pdf_url: '/BEPRO_Quadpod_EN.pdf',
+    dl2_btn_title: 'Quadpod紹介資料 PDF', dl2_btn_sub: 'クリックしてダウンロード',
     contact_tag: 'お見積もり', contact_h: '見積書が必要ですか？',
     contact_url: 'https://tally.so/r/2EZgLp',
     contact_other: 'その他のお問い合わせ', contact_btn: 'お見積もりはこちら',
@@ -120,6 +126,13 @@ function setLang(lang) {
   if (contactBtn && t.contact_url) contactBtn.href = t.contact_url;
   const navContactBtn = document.getElementById('navContactBtn');
   if (navContactBtn && t.contact_url) navContactBtn.href = t.contact_url;
+
+  // 언어별 사각대 소개자료 PDF 링크
+  const dl2Btn = document.getElementById('downloadBtn2');
+  if (dl2Btn && t.quadpod_pdf_url) {
+    dl2Btn.href = t.quadpod_pdf_url;
+    dl2Btn.setAttribute('download', t.quadpod_pdf_url.split('/').pop());
+  }
 
   document.documentElement.lang = lang === 'ja' ? 'ja' : (lang === 'en' ? 'en' : 'ko');
 
@@ -178,10 +191,10 @@ function setLang(lang) {
       total1:'3,000 USD', total2:'3,500 USD', total3:'500 USD'
     },
     ja: {
-      camera_b:'385,000円', camera_w:'385,000円',
-      sub_b:'220,000円', sub_w:'220,000円',
-      quad_b:'71,500円', quad_w:'71,500円',
-      total1:'605,000円 (税抜)', total2:'676,500円 (税抜)', total3:'71,500円 (税抜)'
+      camera_b:'350,000円', camera_w:'350,000円',
+      sub_b:'200,000円', sub_w:'200,000円',
+      quad_b:'65,000円', quad_w:'65,000円',
+      total1:'550,000円 (税抜)', total2:'615,000円 (税抜)', total3:'65,000円 (税抜)'
     }
   };
   const pd = priceData[lang] || priceData.ko;
@@ -605,6 +618,15 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
         <div>
           <span style="font-size:14px;font-weight:600;color:#f5f5f7;display:block" data-i18n="dl_btn_title">케르베로스 소개자료 PDF</span>
           <span style="font-size:11px;color:#555;display:block;margin-top:2px" data-i18n="dl_btn_sub">클릭하여 다운로드</span>
+        </div>
+      </a>
+      <a href="/BEPRO_Quadpod_KR.pdf" download="BEPRO_Quadpod_KR.pdf" class="dl-btn" id="downloadBtn2" style="margin-top:12px">
+        <div class="dl-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="1" width="10" height="13" rx="1.5" stroke="white" stroke-width="1.5"/><path d="M10 1.5L13.5 5H10.5C10.2 5 10 4.8 10 4.5V1.5Z" fill="white" opacity=".5"/><line x1="6" y1="8" x2="11" y2="8" stroke="white" stroke-width="1.2" stroke-linecap="round"/><line x1="6" y1="10.5" x2="11" y2="10.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/><circle cx="15" cy="15" r="4" fill="#E8151B"/><path d="M15 12.5v3M13.5 14.5l1.5 1.5 1.5-1.5" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <span style="font-size:14px;font-weight:600;color:#f5f5f7;display:block" data-i18n="dl2_btn_title">사각대 소개자료 PDF</span>
+          <span style="font-size:11px;color:#555;display:block;margin-top:2px" data-i18n="dl2_btn_sub">클릭하여 다운로드</span>
         </div>
       </a>
     </div>
