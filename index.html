@@ -262,7 +262,14 @@ function setLang(lang) {
 
   // EN 전용 가격 안내 문구 (공간은 항상 유지, KO/JP 이외 언어는 USD 기준이라 함께 표시)
   const priceNote = document.getElementById('en-price-note');
-  if (priceNote) priceNote.style.visibility = (['en','fr','es','it','de'].includes(lang)) ? 'visible' : 'hidden';
+  if (priceNote) {
+    const noteData = {
+      en: "* Subscription fee is charged on an annual basis, while all other items are one-off payments.<br>* Prices listed do not include VAT, import tax, or any other taxes applicable to shipment to the destination country.",
+      fr: "* L'abonnement est facturé sur une base annuelle, tandis que tous les autres éléments sont des paiements uniques.<br>* Les prix indiqués ne comprennent pas la TVA, les taxes d'importation ni aucune autre taxe applicable à l'expédition vers le pays de destination."
+    };
+    priceNote.innerHTML = noteData[lang] || noteData.en;
+    priceNote.style.visibility = (['en','fr','es','it','de'].includes(lang)) ? 'visible' : 'hidden';
+  }
 
   // 툴팁 언어 업데이트
   const tooltipData = {
@@ -289,6 +296,14 @@ function setLang(lang) {
       'tt-tri3': {title:'四脚キット', items:['四脚本体','四脚バッグ','スタビライザー']},
       'tt-sub1': {title:'サブスク内容', items:['BEPRO Editor','BEPRO Space','アカウント数無制限','技術サポート']},
       'tt-sub2': {title:'サブスク内容', items:['BEPRO Editor','BEPRO Space','アカウント数無制限','技術サポート']},
+    },
+    fr: {
+      'tt-cam1': {title:'Kit caméra', items:['Sac de caméra','Support de caméra','Vis d\'adaptation','Chargeur']},
+      'tt-cam2': {title:'Kit caméra', items:['Sac de caméra','Support de caméra','Vis d\'adaptation','Chargeur']},
+      'tt-tri1': {title:'Kit Quadpod', items:['Quadpod','Sac Quadpod','Stabilisateur']},
+      'tt-tri3': {title:'Kit Quadpod', items:['Quadpod','Sac Quadpod','Stabilisateur']},
+      'tt-sub1': {title:'Inclus dans l\'abonnement', items:['BEPRO Editor','BEPRO Space','Comptes illimités','Support technique et formation']},
+      'tt-sub2': {title:'Inclus dans l\'abonnement', items:['BEPRO Editor','BEPRO Space','Comptes illimités','Support technique et formation']},
     }
   };
   const td = tooltipData[lang] || tooltipData.en;
@@ -319,6 +334,12 @@ function setLang(lang) {
       sub_b:'200,000円', sub_w:'200,000円',
       quad_b:'65,000円', quad_w:'65,000円',
       total1:'550,000円 (税抜)', total2:'615,000円 (税抜)', total3:'65,000円 (税抜)'
+    },
+    fr: {
+      camera_b:'2 000 €', camera_w:'2 000 €',
+      sub_b:'1 000 €', sub_w:'1 000 €',
+      quad_b:'500 €', quad_w:'500 €',
+      total1:'3 000 €', total2:'3 500 €', total3:'500 €'
     }
   };
   const pd = priceData[lang] || priceData.en;
