@@ -265,7 +265,8 @@ function setLang(lang) {
   if (priceNote) {
     const noteData = {
       en: "* Subscription fee is charged on an annual basis, while all other items are one-off payments.<br>* Prices listed do not include VAT, import tax, or any other taxes applicable to shipment to the destination country.",
-      fr: "* L'abonnement est facturé sur une base annuelle, tandis que tous les autres éléments sont des paiements uniques.<br>* Les prix indiqués ne comprennent pas la TVA, les taxes d'importation ni aucune autre taxe applicable à l'expédition vers le pays de destination."
+      fr: "* L'abonnement est facturé sur une base annuelle, tandis que tous les autres éléments sont des paiements uniques.<br>* Les prix indiqués ne comprennent pas la TVA, les taxes d'importation ni aucune autre taxe applicable à l'expédition vers le pays de destination.",
+      de: "* Die Abonnementgebühr wird jährlich berechnet, alle anderen Posten sind Einmalzahlungen.<br>* Die angegebenen Preise verstehen sich ohne MwSt., Einfuhrsteuern oder sonstige Steuern, die beim Versand in das Zielland anfallen."
     };
     priceNote.innerHTML = noteData[lang] || noteData.en;
     priceNote.style.visibility = (['en','fr','es','it','de'].includes(lang)) ? 'visible' : 'hidden';
@@ -304,6 +305,14 @@ function setLang(lang) {
       'tt-tri3': {title:'Kit Quadpod', items:['Quadpod','Sac Quadpod','Stabilisateur']},
       'tt-sub1': {title:'Inclus dans l\'abonnement', items:['BEPRO Editor','BEPRO Space','Comptes illimités','Support technique et formation']},
       'tt-sub2': {title:'Inclus dans l\'abonnement', items:['BEPRO Editor','BEPRO Space','Comptes illimités','Support technique et formation']},
+    },
+    de: {
+      'tt-cam1': {title:'Kamera-Kit', items:['Kameratasche','Kamerahalterung','Adapterschraube','Ladegerät']},
+      'tt-cam2': {title:'Kamera-Kit', items:['Kameratasche','Kamerahalterung','Adapterschraube','Ladegerät']},
+      'tt-tri1': {title:'Quadpod-Kit', items:['Quadpod','Quadpod-Tasche','Stabilisator']},
+      'tt-tri3': {title:'Quadpod-Kit', items:['Quadpod','Quadpod-Tasche','Stabilisator']},
+      'tt-sub1': {title:'Im Abonnement enthalten', items:['BEPRO Editor','BEPRO Space','Unbegrenzte Konten','Technischer Support & Schulung']},
+      'tt-sub2': {title:'Im Abonnement enthalten', items:['BEPRO Editor','BEPRO Space','Unbegrenzte Konten','Technischer Support & Schulung']},
     }
   };
   const td = tooltipData[lang] || tooltipData.en;
@@ -340,6 +349,12 @@ function setLang(lang) {
       sub_b:'1 000 €', sub_w:'1 000 €',
       quad_b:'500 €', quad_w:'500 €',
       total1:'3 000 €', total2:'3 500 €', total3:'500 €'
+    },
+    de: {
+      camera_b:'2.000 €', camera_w:'2.000 €',
+      sub_b:'1.000 €', sub_w:'1.000 €',
+      quad_b:'500 €', quad_w:'500 €',
+      total1:'3.000 €', total2:'3.500 €', total3:'500 €'
     }
   };
   const pd = priceData[lang] || priceData.en;
