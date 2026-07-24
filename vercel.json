@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/:lang(ko|en|ja|jp|fr|es|it|de|KO|EN|JA|JP|FR|ES|IT|DE)",
+      "destination": "/index.html"
+    }
+  ]
+}

@@ -230,6 +230,12 @@ function setLang(lang) {
 
   document.documentElement.lang = lang;
 
+  // 주소창 경로 동기화 (/DE, /EN, /JP ... — 한국어는 루트 /)
+  try {
+    const pathCode = lang === 'ko' ? '/' : '/' + (lang === 'ja' ? 'JP' : lang.toUpperCase());
+    if (location.pathname !== pathCode) history.replaceState(null, '', pathCode);
+  } catch (e) {}
+
   // 드롭다운 현재 선택 표시 갱신
   const currentLabel = document.getElementById('langCurrentLabel');
   if (currentLabel && LANG_META[lang]) currentLabel.textContent = LANG_META[lang].label;
@@ -266,7 +272,8 @@ function setLang(lang) {
     const noteData = {
       en: "* Subscription fee is charged on an annual basis, while all other items are one-off payments.<br>* Prices listed do not include VAT, import tax, or any other taxes applicable to shipment to the destination country.",
       fr: "* L'abonnement est facturé sur une base annuelle, tandis que tous les autres éléments sont des paiements uniques.<br>* Les prix indiqués ne comprennent pas la TVA, les taxes d'importation ni aucune autre taxe applicable à l'expédition vers le pays de destination.",
-      de: "* Die Abonnementgebühr wird jährlich berechnet, alle anderen Posten sind Einmalzahlungen.<br>* Die angegebenen Preise verstehen sich ohne MwSt., Einfuhrsteuern oder sonstige Steuern, die beim Versand in das Zielland anfallen."
+      de: "* Die Abonnementgebühr wird jährlich berechnet, alle anderen Posten sind Einmalzahlungen.<br>* Die angegebenen Preise verstehen sich ohne MwSt., Einfuhrsteuern oder sonstige Steuern, die beim Versand in das Zielland anfallen.",
+      es: "* La cuota de suscripción se factura anualmente, mientras que el resto de los conceptos son pagos únicos.<br>* Los precios indicados no incluyen IVA, impuestos de importación ni ningún otro impuesto aplicable al envío al país de destino."
     };
     priceNote.innerHTML = noteData[lang] || noteData.en;
     priceNote.style.visibility = (['en','fr','es','it','de'].includes(lang)) ? 'visible' : 'hidden';
@@ -313,6 +320,14 @@ function setLang(lang) {
       'tt-tri3': {title:'Quadpod-Kit', items:['Quadpod','Quadpod-Tasche','Stabilisator']},
       'tt-sub1': {title:'Im Abonnement enthalten', items:['BEPRO Editor','BEPRO Space','Unbegrenzte Konten','Technischer Support & Schulung']},
       'tt-sub2': {title:'Im Abonnement enthalten', items:['BEPRO Editor','BEPRO Space','Unbegrenzte Konten','Technischer Support & Schulung']},
+    },
+    es: {
+      'tt-cam1': {title:'Kit de cámara', items:['Bolsa de cámara','Soporte de cámara','Tornillo adaptador','Cargador']},
+      'tt-cam2': {title:'Kit de cámara', items:['Bolsa de cámara','Soporte de cámara','Tornillo adaptador','Cargador']},
+      'tt-tri1': {title:'Kit Quadpod', items:['Quadpod','Bolsa Quadpod','Estabilizador']},
+      'tt-tri3': {title:'Kit Quadpod', items:['Quadpod','Bolsa Quadpod','Estabilizador']},
+      'tt-sub1': {title:'Incluido en la suscripción', items:['BEPRO Editor','BEPRO Space','Cuentas ilimitadas','Soporte técnico y formación']},
+      'tt-sub2': {title:'Incluido en la suscripción', items:['BEPRO Editor','BEPRO Space','Cuentas ilimitadas','Soporte técnico y formación']},
     }
   };
   const td = tooltipData[lang] || tooltipData.en;
@@ -351,6 +366,12 @@ function setLang(lang) {
       total1:'3 000 €', total2:'3 500 €', total3:'500 €'
     },
     de: {
+      camera_b:'2.000 €', camera_w:'2.000 €',
+      sub_b:'1.000 €', sub_w:'1.000 €',
+      quad_b:'500 €', quad_w:'500 €',
+      total1:'3.000 €', total2:'3.500 €', total3:'500 €'
+    },
+    es: {
       camera_b:'2.000 €', camera_w:'2.000 €',
       sub_b:'1.000 €', sub_w:'1.000 €',
       quad_b:'500 €', quad_w:'500 €',
@@ -878,6 +899,15 @@ function switchVideo(idx) {
   mv.play().catch(()=>{});
   document.querySelectorAll('.thumb-btn').forEach((b,i) => b.classList.toggle('active', i===idx));
 }
+
+// ---------- URL 경로 기반 초기 언어 설정 (/DE, /en, /Jp 등) ----------
+(function initLangFromPath() {
+  const seg = location.pathname.replace(/\//g, '').toLowerCase();
+  if (!seg) return; // 루트(/)면 기본 한국어 유지
+  const alias = { jp: 'ja' };
+  const lang = alias[seg] || seg;
+  if (translations[lang]) setLang(lang);
+})();
 </script>
 
 
