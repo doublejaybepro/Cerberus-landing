@@ -151,6 +151,35 @@ const translations = {
     feat4_desc: 'Edita con BEPRO Editor ajustando encuadres e insertando gráficos, y comparte al instante con tu equipo.',
     thumb1: 'Partido', thumb2: 'Entrenamiento', thumb3: 'U12', thumb4: 'Baloncesto', thumb5: 'Detrás de la portería',
   },
+  pt: {
+    nav_cta: 'Contactar', nav_features: 'Funcionalidades', nav_price: 'Pacotes', nav_brochure: 'Brochura',
+    hero_eyebrow: 'Câmara desportiva com IA da BEPRO',
+    hero_h1: "Gravar não é suficiente.<br><em><span style=\"color:var(--red)\">A CERBERUS faz crescer</span> a sua equipa.</em>",
+    hero_msg: '<strong style="color:#fff;font-weight:600">A CERBERUS acompanha-o em cada passo: da gravação de jogos e treinos ao streaming em direto, à edição e ao envio dos vídeos para a sua equipa.</strong>',
+    hero_btn1: 'Pedir informações', hero_btn2: 'Descarregar brochura',
+    sec2_tag: 'Funcionalidades principais', pkg_tag: 'Pacotes e preços',
+    dl_tag: 'Brochura', dl_h: 'Quer saber<br>mais sobre a CERBERUS?',
+    dl_desc: 'Descarregue a brochura da CERBERUS para partilhar internamente.',
+    dl_btn_title: 'Brochura CERBERUS (PDF)', dl_btn_sub: 'Clique para descarregar',
+    quadpod_pdf_url: '/BEPRO_Quadpod_EN.pdf',
+    dl2_btn_title: 'Brochura Quadpod (PDF)', dl2_btn_sub: 'Clique para descarregar',
+    contact_tag: 'Orçamento', contact_h: 'Precisa de um orçamento?',
+    contact_url: 'https://tally.so/r/PT_INQUIRY_FORM_ID', // ★ PT Inquiry 폼 생성 후 교체
+    contact_other: 'Outras questões', contact_btn: 'Pedir orçamento →',
+    pkg1_num: 'Pacote 1', pkg2_num: 'Pacote 2', pkg3_num: 'Pacote 3',
+    pkg1_name: 'Câmara + Subscrição + Quadpod', pkg2_name: 'Câmara + Subscrição', pkg3_name: 'Quadpod',
+    item_camera: 'Câmara CERBERUS', item_sub: 'Subscrição (1 ano)', item_quadpod: 'Quadpod BEPRO',
+    total_label: 'Total', badge_rec: 'Recomendado', comp_label: 'Componentes :',
+    feat1_key: 'Instalação rápida',
+    feat1_desc: 'Da instalação à gravação em apenas 5 minutos. Instale a câmara e comece a gravar com um processo muito simples.',
+    feat2_key: 'Gravação automática<br>— Jogo e treino',
+    feat2_desc: 'Sem necessidade de a operar. A CERBERUS grava automaticamente cada momento do campo, sem ângulos mortos.',
+    feat3_key: 'Streaming em direto<br>e análise ao vivo',
+    feat3_desc: 'Transmita em direto a partir de fora do recinto, ou crie um clipe no momento a partir do banco para dar feedback ao intervalo.',
+    feat4_key: 'Edição de vídeo<br>e partilha',
+    feat4_desc: 'Edite com o BEPRO Editor ajustando enquadramentos e inserindo gráficos, e partilhe de imediato com a sua equipa.',
+    thumb1: 'Jogo', thumb2: 'Treino', thumb3: 'U12', thumb4: 'Basquetebol', thumb5: 'Atrás da baliza',
+  },
   it: {
     nav_cta: 'Contattaci', nav_features: 'Funzionalità', nav_price: 'Pacchetti', nav_brochure: 'Brochure',
     hero_eyebrow: 'Videocamera sportiva IA di BEPRO',
@@ -221,6 +250,7 @@ const LANG_META = {
   es: {label:'ES', name:'Español'},
   it: {label:'IT', name:'Italiano'},
   de: {label:'DE', name:'Deutsch'},
+  pt: {label:'PT', name:'Português'},
 };
 
 function setLang(lang) {
@@ -273,7 +303,9 @@ function setLang(lang) {
       en: "* Subscription fee is charged on an annual basis, while all other items are one-off payments.<br>* Prices listed do not include VAT, import tax, or any other taxes applicable to shipment to the destination country.",
       fr: "* L'abonnement est facturé sur une base annuelle, tandis que tous les autres éléments sont des paiements uniques.<br>* Les prix indiqués ne comprennent pas la TVA, les taxes d'importation ni aucune autre taxe applicable à l'expédition vers le pays de destination.",
       de: "* Die Abonnementgebühr wird jährlich berechnet, alle anderen Posten sind Einmalzahlungen.<br>* Die angegebenen Preise verstehen sich ohne MwSt., Einfuhrsteuern oder sonstige Steuern, die beim Versand in das Zielland anfallen.",
-      es: "* La cuota de suscripción se factura anualmente, mientras que el resto de los conceptos son pagos únicos.<br>* Los precios indicados no incluyen IVA, impuestos de importación ni ningún otro impuesto aplicable al envío al país de destino."
+      es: "* La cuota de suscripción se factura anualmente, mientras que el resto de los conceptos son pagos únicos.<br>* Los precios indicados no incluyen IVA, impuestos de importación ni ningún otro impuesto aplicable al envío al país de destino.",
+      it: "* Il canone di abbonamento viene fatturato annualmente, mentre tutte le altre voci sono pagamenti una tantum.<br>* I prezzi indicati non includono IVA, dazi d'importazione o altre imposte applicabili alla spedizione nel paese di destinazione.",
+      pt: "* A taxa de subscrição é faturada anualmente, enquanto todos os restantes itens são pagamentos únicos.<br>* Os preços indicados não incluem IVA, taxas de importação ou quaisquer outros impostos aplicáveis ao envio para o país de destino."
     };
     priceNote.innerHTML = noteData[lang] || noteData.en;
     priceNote.style.visibility = (['en','fr','es','it','de'].includes(lang)) ? 'visible' : 'hidden';
@@ -328,6 +360,22 @@ function setLang(lang) {
       'tt-tri3': {title:'Kit Quadpod', items:['Quadpod','Bolsa Quadpod','Estabilizador']},
       'tt-sub1': {title:'Incluido en la suscripción', items:['BEPRO Editor','BEPRO Space','Cuentas ilimitadas','Soporte técnico y formación']},
       'tt-sub2': {title:'Incluido en la suscripción', items:['BEPRO Editor','BEPRO Space','Cuentas ilimitadas','Soporte técnico y formación']},
+    },
+    it: {
+      'tt-cam1': {title:'Kit telecamera', items:['Borsa per telecamera','Supporto telecamera','Vite adattatore','Caricabatterie']},
+      'tt-cam2': {title:'Kit telecamera', items:['Borsa per telecamera','Supporto telecamera','Vite adattatore','Caricabatterie']},
+      'tt-tri1': {title:'Kit Quadpod', items:['Quadpod','Borsa Quadpod','Stabilizzatore']},
+      'tt-tri3': {title:'Kit Quadpod', items:['Quadpod','Borsa Quadpod','Stabilizzatore']},
+      'tt-sub1': {title:'Incluso nell\'abbonamento', items:['BEPRO Editor','BEPRO Space','Account illimitati','Supporto tecnico e formazione']},
+      'tt-sub2': {title:'Incluso nell\'abbonamento', items:['BEPRO Editor','BEPRO Space','Account illimitati','Supporto tecnico e formazione']},
+    },
+    pt: {
+      'tt-cam1': {title:'Kit da câmara', items:['Bolsa da câmara','Suporte da câmara','Parafuso adaptador','Carregador']},
+      'tt-cam2': {title:'Kit da câmara', items:['Bolsa da câmara','Suporte da câmara','Parafuso adaptador','Carregador']},
+      'tt-tri1': {title:'Kit Quadpod', items:['Quadpod','Bolsa Quadpod','Estabilizador']},
+      'tt-tri3': {title:'Kit Quadpod', items:['Quadpod','Bolsa Quadpod','Estabilizador']},
+      'tt-sub1': {title:'Incluído na subscrição', items:['BEPRO Editor','BEPRO Space','Contas ilimitadas','Suporte técnico e formação']},
+      'tt-sub2': {title:'Incluído na subscrição', items:['BEPRO Editor','BEPRO Space','Contas ilimitadas','Suporte técnico e formação']},
     }
   };
   const td = tooltipData[lang] || tooltipData.en;
@@ -372,6 +420,18 @@ function setLang(lang) {
       total1:'3.000 €', total2:'3.500 €', total3:'500 €'
     },
     es: {
+      camera_b:'2.000 €', camera_w:'2.000 €',
+      sub_b:'1.000 €', sub_w:'1.000 €',
+      quad_b:'500 €', quad_w:'500 €',
+      total1:'3.000 €', total2:'3.500 €', total3:'500 €'
+    },
+    it: {
+      camera_b:'2.000 €', camera_w:'2.000 €',
+      sub_b:'1.000 €', sub_w:'1.000 €',
+      quad_b:'500 €', quad_w:'500 €',
+      total1:'3.000 €', total2:'3.500 €', total3:'500 €'
+    },
+    pt: {
       camera_b:'2.000 €', camera_w:'2.000 €',
       sub_b:'1.000 €', sub_w:'1.000 €',
       quad_b:'500 €', quad_w:'500 €',
@@ -637,6 +697,7 @@ nav.scrolled .nav-a:hover{color:#fff;background:rgba(255,255,255,.1)}
         <button class="lang-option" data-lang="es" onclick="setLang('es')"><span class="lo-code">ES</span><span class="lo-name">Español</span></button>
         <button class="lang-option" data-lang="it" onclick="setLang('it')"><span class="lo-code">IT</span><span class="lo-name">Italiano</span></button>
         <button class="lang-option" data-lang="de" onclick="setLang('de')"><span class="lo-code">DE</span><span class="lo-name">Deutsch</span></button>
+        <button class="lang-option" data-lang="pt" onclick="setLang('pt')"><span class="lo-code">PT</span><span class="lo-name">Português</span></button>
       </div>
     </div>
     <a href="https://tally.so/r/A7jpZz" target="_blank" class="nav-btn" id="navContactBtn" style="text-decoration:none" data-i18n="nav_cta">견적 문의</a>
