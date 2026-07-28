@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/:lang(ko|en|ja|jp|fr|es|it|de|KO|EN|JA|JP|FR|ES|IT|DE)",
+      "source": "/:lang(ko|en|ja|jp|fr|es|it|de|pt|KO|EN|JA|JP|FR|ES|IT|DE|PT)",
       "destination": "/index.html"
     }
   ]
