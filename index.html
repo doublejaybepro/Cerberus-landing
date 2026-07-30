@@ -319,7 +319,7 @@ function setLang(lang) {
       pt: "* A taxa de subscrição é faturada anualmente, enquanto todos os restantes itens são pagamentos únicos.<br>* Os preços indicados não incluem IVA, taxas de importação ou quaisquer outros impostos aplicáveis ao envio para o país de destino."
     };
     priceNote.innerHTML = noteData[lang] || noteData.en;
-    priceNote.style.visibility = (['en','fr','es','it','de'].includes(lang)) ? 'visible' : 'hidden';
+    priceNote.style.visibility = (['en','fr','es','it','de','pt'].includes(lang)) ? 'visible' : 'hidden';
   }
 
   // 툴팁 언어 업데이트
