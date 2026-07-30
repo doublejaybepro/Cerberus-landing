@@ -1,4 +1,20 @@
 {
+  "redirects": [
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "FR" }], "destination": "/FR", "permanent": false },
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "ES" }], "destination": "/ES", "permanent": false },
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "PT" }], "destination": "/PT", "permanent": false },
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "DE" }], "destination": "/DE", "permanent": false },
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "AT" }], "destination": "/DE", "permanent": false },
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "CH" }], "destination": "/DE", "permanent": false },
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "IT" }], "destination": "/IT", "permanent": false },
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "JP" }], "destination": "/JP", "permanent": false },
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "GB" }], "destination": "/EN", "permanent": false },
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "US" }], "destination": "/EN", "permanent": false },
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "CA" }], "destination": "/EN", "permanent": false },
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "AU" }], "destination": "/EN", "permanent": false },
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "IE" }], "destination": "/EN", "permanent": false },
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "NZ" }], "destination": "/EN", "permanent": false }
+  ],
   "rewrites": [
     {
       "source": "/:lang(ko|en|ja|jp|fr|es|it|de|pt|KO|EN|JA|JP|FR|ES|IT|DE|PT)",
