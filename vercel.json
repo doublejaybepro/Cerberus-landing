@@ -8,12 +8,7 @@
     { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "CH" }], "destination": "/DE", "permanent": false },
     { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "IT" }], "destination": "/IT", "permanent": false },
     { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "JP" }], "destination": "/JP", "permanent": false },
-    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "GB" }], "destination": "/EN", "permanent": false },
-    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "US" }], "destination": "/EN", "permanent": false },
-    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "CA" }], "destination": "/EN", "permanent": false },
-    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "AU" }], "destination": "/EN", "permanent": false },
-    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "IE" }], "destination": "/EN", "permanent": false },
-    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "NZ" }], "destination": "/EN", "permanent": false }
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "(?!(?:KR|FR|ES|PT|DE|AT|CH|IT|JP)$).+" }], "destination": "/EN", "permanent": false }
   ],
   "rewrites": [
     {
